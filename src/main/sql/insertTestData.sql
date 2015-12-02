@@ -58,5 +58,32 @@ INSERT INTO schedulecities (scheduleId, cityId, time) VALUES
     (3, 21, TIME '13:17:00'), (3, 22, TIME '13:24:00'), (3, 23, TIME '13:41:00'),
     (3, 24, TIME '13:58:00');
     
+/* Insert Acela Express Data */
+INSERT INTO routes (name) VALUE ('Acela Express');
 
+INSERT INTO equipment (configuration, series) VALUES ('Business', 'Acela High Speed Trainset'),
+	('First', 'Acela High Speed Trainset'), ('Cafe', 'Acela High Speed Trainset');
+
+INSERT INTO routeequipment (routeName, equipmentId) VALUES
+	('Acela Express', 10), ('Acela Express', 11), ('Acela Express', 12);
+
+INSERT INTO cities (region, name, state) VALUES
+	('southeast', 'BWI', 'MD'), ('southeast', 'Baltimore', 'MD'), ('northeast', 'Wilmington', 'DE'),
+    ('northeast', 'Philidelphia', 'PA'), ('northeast', 'Newark', 'NJ'), ('northeast', 'New York', 'NY');
+
+INSERT INTO schedule (origin, termination, originTime, termTime, route) VALUES
+	(1, 34, TIME '7:55:00', TIME '10:46:00', 'Acela Express');
     
+INSERT INTO schedulecities (scheduleId, cityId, time) VALUES
+	(4, 29, TIME '08:16:00'), (4, 30, TIME '08:29:00'), (4, 31, TIME '09:14:00'),
+    (4, 32, TIME '09:35:00'), (4, 33, TIME '10:29:00');
+
+/* Insert reverse Acela */
+INSERT INTO schedule (origin, termination, originTime, termTime, route) VALUES
+	(34, 1, TIME '11:00:00', TIME '13:57:00', 'Acela Express');
+    
+INSERT INTO cities (region, name, state) VALUES ('northeast', 'Metropark', 'NJ');
+
+INSERT INTO schedulecities (scheduleId, cityId, time) VALUES
+	(5, 33, TIME '11:14:00'), (5, 35, TIME '11:29:00'), (5, 32, TIME '12:10:00'),
+    (5, 31, TIME '12:32:00'), (5, 30, TIME '13:14:00'), (5, 29, TIME '13:27:00');
