@@ -1,5 +1,6 @@
 package edu.neu.bedelldriesman.amroute.entitymodels;
 
+import java.sql.Time;
 import java.util.Objects;
 
 /**
@@ -10,15 +11,18 @@ import java.util.Objects;
 public class Stop {
     private int scheduleId;
     private int cityId;
+    private Time time;
 
     private City city;
 
-    public Stop(City city, int scheduleId, int cityId) {
+    public Stop(City city, int scheduleId, int cityId, Time time) {
         Objects.requireNonNull(city);
+        Objects.requireNonNull(time);
 
         this.city = city;
         this.scheduleId = scheduleId;
         this.cityId = cityId;
+        this.time = time;
     }
 
     public int getScheduleId() {
@@ -45,6 +49,14 @@ public class Stop {
         Objects.requireNonNull(city);
 
         this.city = city;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     @Override
