@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class RouteController {
     @Autowired
     JdbcTemplate temp;
 
-    @RequestMapping("/route")
+    @RequestMapping(path = "/route", method = RequestMethod.GET)
     public String getRoute(@RequestParam(value = "id", required = true) String id, Model model) {
         DBClientImpl client = new DBClientImpl(temp);
         ArrayList<Schedule> schedules = client.getScheduleForRoute(id);
