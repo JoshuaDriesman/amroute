@@ -6,19 +6,13 @@ import edu.neu.bedelldriesman.amroute.entitymodels.Schedule;
 import edu.neu.bedelldriesman.amroute.entitymodels.Stop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
-import org.springframework.jdbc.core.SqlInOutParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Component;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by Joshua Driesman on 12/5/2015.
@@ -81,18 +75,30 @@ public class DBClientImpl implements DBClient {
     public ArrayList<Schedule> getScheduleForRoute(String route) {
         ArrayList<Schedule> result = new ArrayList<>();
 
-//        SimpleJdbcCall call = new SimpleJdbcCall(template)
-//                .withProcedureName("getSchedulesForRoute")
-//                .returningResultSet("rs1", new RowMapper<Object>() {
-//
-//                    @Override
-//                    public Object mapRow(ResultSet resultSet, int i) throws SQLException {
-//                        return new Schedule(resultSet.getInt(0), resultSet.getInt(1), resultSet.getInt(2),
-//                                resultSet.getTime(3), resultSet.getTime(4), resultSet.getString(5));
-//                    }
-//                });
+        SimpleJdbcCall call = new SimpleJdbcCall(template)
+                .withProcedureName("getSchedulesForRoute")
+                .returningResultSet("rs1", (resultSet, i) ->
+                        new Schedule(resultSet.getString(6), resultSet.getInt(2), resultSet.getInt(3),
+                                resultSet.getTime(4), resultSet.getTime(5), getStopsForSchedule(resultSet.getInt(0)),
+                                resultSet.getInt(1)));
 
-        return null;
+        SqlParameterSource in = new MapSqlParameterSource()
+                .addValue("r", route);
+
+        Object resultObject = call.execute(in).get("rs1");
+        ArrayList resultArrayList;
+
+        if (resultObject instanceof ArrayList) {
+            resultArrayList = (ArrayList) resultObject;
+        } else {
+            throw new IllegalStateException("Got unexpected stuff from database");
+        }
+
+        for (Object row : resultArrayList) {
+            result.add((Schedule) row);
+        }
+
+        return result;
     }
 
     @Override
