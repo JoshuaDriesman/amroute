@@ -1,6 +1,7 @@
 package edu.neu.bedelldriesman.amroute.controllers;
 
 import edu.neu.bedelldriesman.amroute.databaseinteraction.DBClientImpl;
+import edu.neu.bedelldriesman.amroute.entitymodels.City;
 import edu.neu.bedelldriesman.amroute.entitymodels.Schedule;
 import edu.neu.bedelldriesman.amroute.entitymodels.Stop;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,11 @@ public class ScheduleController {
 
         List<Stop> stops = s.getStops();
 
+        List<City> cities = client.getAllCities();
+
         model.addAttribute("schedule", s);
         model.addAttribute("stops", s);
+        model.addAttribute("allCities", cities);
 
         return "editschedule";
     }
