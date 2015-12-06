@@ -61,4 +61,37 @@ public class City {
 
         this.region = region;
     }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "cityId=" + cityId +
+                ", name='" + name + '\'' +
+                ", state='" + state + '\'' +
+                ", region='" + region + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        City city = (City) o;
+
+        if (cityId != city.cityId) return false;
+        if (!name.equals(city.name)) return false;
+        if (!state.equals(city.state)) return false;
+        return region.equals(city.region);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = cityId;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + state.hashCode();
+        result = 31 * result + region.hashCode();
+        return result;
+    }
 }
