@@ -92,5 +92,3 @@ SELECT route, cityNameForId(origin) 'From', cityNameForId(termination) 'To', cit
 		JOIN cities ON cities.idCities = schedulecities.cityId;
 END
 $$ DELIMITER ;
-
-CALL getStopsInTimeRange(TIME '3:00:00', TIME '12:00:00');
