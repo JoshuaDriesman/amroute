@@ -109,7 +109,7 @@ public class DBClientImpl implements DBClient {
                 .withProcedureName("getStopsForSchedule")
                 .returningResultSet("rs1", (resultSet, i) ->
                         new Stop(getCity(resultSet.getInt(2)), resultSet.getInt(1), resultSet.getInt(2),
-                                resultSet.getTime(3)));
+                                resultSet.getTime(3), resultSet.getBoolean(4)));
 
         SqlParameterSource in = new MapSqlParameterSource()
                 .addValue("sId", sId);
