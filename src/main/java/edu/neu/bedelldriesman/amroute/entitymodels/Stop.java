@@ -12,10 +12,11 @@ public class Stop {
     private int scheduleId;
     private int cityId;
     private Time time;
+    private boolean nextDay;
 
     private City city;
 
-    public Stop(City city, int scheduleId, int cityId, Time time) {
+    public Stop(City city, int scheduleId, int cityId, Time time, boolean nextDay) {
         Objects.requireNonNull(city);
         Objects.requireNonNull(time);
 
@@ -23,6 +24,7 @@ public class Stop {
         this.scheduleId = scheduleId;
         this.cityId = cityId;
         this.time = time;
+        this.nextDay = nextDay;
     }
 
     public int getScheduleId() {
@@ -87,5 +89,13 @@ public class Stop {
                 ", cityId=" + cityId +
                 ", city=" + city +
                 '}';
+    }
+
+    public boolean isNextDay() {
+        return nextDay;
+    }
+
+    public void setNextDay(boolean nextDay) {
+        this.nextDay = nextDay;
     }
 }
