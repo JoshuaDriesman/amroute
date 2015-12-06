@@ -4,9 +4,18 @@
 <head>
     <meta charset="UTF-8" />
     <title>Search</title>
+
+    <script>
+        function goBack() {
+        window.history.back();
+        }
+    </script>
 </head>
 <body>
     <h1>Search for Route</h1>
     <p><a th:href="@{search/listall}">List All Data</a></p>
+
+    <br />
+    <button onclick="goBack()">Go Back</button>
 </body>
 </html>
