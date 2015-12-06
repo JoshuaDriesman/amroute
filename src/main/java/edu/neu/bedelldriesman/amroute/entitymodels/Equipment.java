@@ -4,6 +4,8 @@ import java.util.Objects;
 
 /**
  * Created by Joshua Driesman on 11/16/2015.
+ *
+ * Copyright 2015 Joshua Driesman, All rights reserved.
  */
 public class Equipment {
     private int equipmentId;
@@ -45,5 +47,35 @@ public class Equipment {
         Objects.requireNonNull(configuration);
 
         this.configuration = configuration;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Equipment equipment = (Equipment) o;
+
+        if (equipmentId != equipment.equipmentId) return false;
+        if (!series.equals(equipment.series)) return false;
+        return configuration.equals(equipment.configuration);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = equipmentId;
+        result = 31 * result + series.hashCode();
+        result = 31 * result + configuration.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Equipment{" +
+                "equipmentId=" + equipmentId +
+                ", series='" + series + '\'' +
+                ", configuration='" + configuration + '\'' +
+                '}';
     }
 }

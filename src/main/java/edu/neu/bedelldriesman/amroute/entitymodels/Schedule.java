@@ -7,6 +7,8 @@ import java.util.Objects;
 
 /**
  * Created by Joshua Driesman on 11/16/2015.
+ *
+ * Copyright 2015 Joshua Driesman, All rights reserved.
  */
 public class Schedule {
     private int routeId;
@@ -77,5 +79,44 @@ public class Schedule {
         Objects.requireNonNull(stops);
 
         this.stops = new ArrayList<Stop>(stops);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Schedule schedule = (Schedule) o;
+
+        if (routeId != schedule.routeId) return false;
+        if (originCity != schedule.originCity) return false;
+        if (termCity != schedule.termCity) return false;
+        if (!originDepartureTime.equals(schedule.originDepartureTime)) return false;
+        if (!termArrivalTime.equals(schedule.termArrivalTime)) return false;
+        return stops.equals(schedule.stops);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = routeId;
+        result = 31 * result + originCity;
+        result = 31 * result + termCity;
+        result = 31 * result + originDepartureTime.hashCode();
+        result = 31 * result + termArrivalTime.hashCode();
+        result = 31 * result + stops.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "routeId=" + routeId +
+                ", originCity=" + originCity +
+                ", termCity=" + termCity +
+                ", originDepartureTime=" + originDepartureTime +
+                ", termArrivalTime=" + termArrivalTime +
+                ", stops=" + stops +
+                '}';
     }
 }
