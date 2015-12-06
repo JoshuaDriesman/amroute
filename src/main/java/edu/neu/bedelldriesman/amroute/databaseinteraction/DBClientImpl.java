@@ -196,6 +196,32 @@ public class DBClientImpl implements DBClient {
     }
 
     @Override
+    public Schedule getSchedule(int scheduleId) {
+        ArrayList<Schedule> results = new ArrayList<>();
+
+        template.query("SELECT * FROM schedules WHERE scheduleId = ?", new Object[] {scheduleId},
+                (rs, rowNumber) -> new Schedule(rs.getString(6), rs.getInt(2), rs.getInt(3),
+                        rs.getTime(4), rs.getTime(5), getStopsForSchedule(rs.getInt(1)),
+                        rs.getInt(2), getCity(rs.getInt(2)), getCity(rs.getInt(3))))
+                .forEach(results::add);
+
+        return results.get(0);
+    }
+
+    @Override
+    public ArrayList<City> getAllCities() {
+        ArrayList<City> result = new ArrayList<>();
+
+        template.query("SELECT * FROM cities",
+                (rs, i) ->
+                        new City(rs.getInt(1), rs.getString(3), rs.getString(4),
+                                rs.getString(2)))
+        .forEach(result::add);
+
+        return result;
+    }
+
+    @Override
     public int deleteRoute(String route) {
         return template.update("DELETE FROM routes WHERE name = ?", new Object[] {route});
     }
