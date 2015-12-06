@@ -11,5 +11,7 @@ public interface DBClient {
     /*boolean create(Object input);
     boolean delete(int id);
     Object get(int id);*/
+    ArrayList<Route> getAllRoutes();
+
     ArrayList<Route> getServingRoutes(String cityName);
 }

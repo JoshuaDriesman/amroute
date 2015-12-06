@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Joshua Driesman on 12/5/2015.
@@ -24,6 +25,20 @@ public class DBClientTest {
 
     @Autowired
     private JdbcTemplate template;
+
+    @Test
+    public void testGetAllRoutes() {
+        DBClientImpl dbClient = new DBClientImpl(template);
+
+        ArrayList<Route> r = dbClient.getAllRoutes();
+        ArrayList<String> names = new ArrayList<>();
+
+        r.forEach(n -> names.add(n.getName()));
+
+        assertTrue(names.contains("Acela Express"));
+        assertTrue(names.contains("Downeaster"));
+        assertTrue(names.contains("Capitol Limited"));
+    }
 
     @Test
     public void testGetServingRoutes() {

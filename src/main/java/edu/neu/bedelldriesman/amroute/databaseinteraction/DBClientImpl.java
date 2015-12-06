@@ -30,6 +30,17 @@ public class DBClientImpl implements DBClient {
     }
 
     @Override
+    public ArrayList<Route> getAllRoutes() {
+        ArrayList<Route> result = new ArrayList<>();
+
+        template.query("SELECT name FROM routes",
+                (rs, rowNumber) -> new Route(rs.getString("name")))
+        .forEach(result::add);
+
+        return result;
+    }
+
+    @Override
     public ArrayList<Route> getServingRoutes(String cityName) {
         ArrayList<Route> result = new ArrayList<>();
 
