@@ -100,6 +100,10 @@ public class Schedule {
         this.termCity = termCity;
     }
 
+    public City getOriginCity() {
+        return originCity;
+    }
+
     @Override
     public String toString() {
         return "Schedule{" +
