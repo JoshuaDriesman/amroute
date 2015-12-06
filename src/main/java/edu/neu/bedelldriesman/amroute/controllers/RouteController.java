@@ -33,4 +33,13 @@ public class RouteController {
 
         return "route";
     }
+
+    @RequestMapping(path = "/route/delete", method = RequestMethod.POST)
+    public String deleteRoute(@RequestParam(value = "route", required = true) String route) {
+        DBClientImpl client = new DBClientImpl(temp);
+
+        client.deleteRoute(route);
+
+        return "redirect:/search/listall";
+    }
 }
