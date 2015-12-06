@@ -11,6 +11,7 @@ import java.util.Objects;
  * Copyright 2015 Joshua Driesman, All rights reserved.
  */
 public class Schedule {
+    final private int scheduleId;
     private String route;
     private int originCity;
     private int termCity;
@@ -20,7 +21,8 @@ public class Schedule {
     private List<Stop> stops;
 
     public Schedule(String route, int originCity, int termCity,
-                    Time originDepartureTime, Time termArrivalTime, List<Stop> stops) {
+                    Time originDepartureTime, Time termArrivalTime, List<Stop> stops, int scheduleId) {
+        this.scheduleId = scheduleId;
         Objects.requireNonNull(stops);
 
         this.stops = new ArrayList<Stop>(stops);
@@ -88,9 +90,10 @@ public class Schedule {
 
         Schedule schedule = (Schedule) o;
 
-        if (!route.equals(schedule.route)) return false;
+        if (scheduleId != schedule.scheduleId) return false;
         if (originCity != schedule.originCity) return false;
         if (termCity != schedule.termCity) return false;
+        if (!route.equals(schedule.route)) return false;
         if (!originDepartureTime.equals(schedule.originDepartureTime)) return false;
         if (!termArrivalTime.equals(schedule.termArrivalTime)) return false;
         return stops.equals(schedule.stops);
@@ -99,7 +102,8 @@ public class Schedule {
 
     @Override
     public int hashCode() {
-        int result = route.hashCode();
+        int result = scheduleId;
+        result = 31 * result + route.hashCode();
         result = 31 * result + originCity;
         result = 31 * result + termCity;
         result = 31 * result + originDepartureTime.hashCode();
@@ -111,12 +115,17 @@ public class Schedule {
     @Override
     public String toString() {
         return "Schedule{" +
-                "routeId=" + route +
+                "scheduleId=" + scheduleId +
+                ", route='" + route + '\'' +
                 ", originCity=" + originCity +
                 ", termCity=" + termCity +
                 ", originDepartureTime=" + originDepartureTime +
                 ", termArrivalTime=" + termArrivalTime +
                 ", stops=" + stops +
                 '}';
+    }
+
+    public int getScheduleId() {
+        return scheduleId;
     }
 }
