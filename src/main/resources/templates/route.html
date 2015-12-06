@@ -59,7 +59,9 @@
         <input type="submit" name="edit" value="Edit" />
     </form>
     <br />
-    <button onclick="goBack()">Go Back</button>
+    <form th:action="@{/search/listall}">
+        <input type="submit" value="Go Back" />
+    </form>
 
 </body>
 </html>
