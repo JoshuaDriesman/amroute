@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <title>Edit Route</title>
 </head>
 <body>
 
+<br />
+
+<form action="#" th:action="@{/route/edit}" th:object="${name}" method="post">
+    <input type="text" name="name" th:value="${name}" />
+    <input type="hidden" name="route" th:value="${name}" />
+    <input type="submit" name="update" value="Update" />
+</form>
+<br />
+<form action="#" th:action="@{/route}" th:object="${name}" method="get">
+    <input type="hidden" name="id" th:value="${name}" />
+    <input type="submit" value="Cancel" />
+</form>
 </body>
 </html>

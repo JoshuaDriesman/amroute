@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 
@@ -39,6 +40,23 @@ public class RouteController {
         DBClientImpl client = new DBClientImpl(temp);
 
         client.deleteRoute(route);
+
+        return "redirect:/search/listall";
+    }
+
+    @RequestMapping(path = "/route/edit", method = RequestMethod.GET)
+    public String editRoute(@RequestParam(value = "route", required = true) String route, Model model) {
+        model.addAttribute("name", route);
+
+        return "editroute";
+    }
+
+    @RequestMapping(path = "/route/edit", method = RequestMethod.POST)
+    public String editRoutePost(@RequestParam(value = "name", required = false) String newName,
+                                @RequestParam(value = "route", required = true) String routeToUpdate) {
+        DBClientImpl client = new DBClientImpl(temp);
+
+        client.changeRouteName(routeToUpdate, newName);
 
         return "redirect:/search/listall";
     }

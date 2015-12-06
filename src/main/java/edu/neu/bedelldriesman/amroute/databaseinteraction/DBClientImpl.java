@@ -200,5 +200,10 @@ public class DBClientImpl implements DBClient {
         return template.update("DELETE FROM routes WHERE name = ?", new Object[] {route});
     }
 
+    @Override
+    public void changeRouteName(String oldName, String newName) {
+        template.update("UPDATE routes SET name = ? WHERE name = ?", new Object[] {newName, oldName});
+    }
+
 
 }
