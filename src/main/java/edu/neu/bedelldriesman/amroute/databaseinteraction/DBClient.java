@@ -23,6 +23,8 @@ public interface DBClient {
 
     ArrayList<Equipment> getEquipmentForRoute(String route);
 
+    Schedule getSchedule(int scheduleId);
+
     // Delete methods
     int deleteRoute(String route);
 
