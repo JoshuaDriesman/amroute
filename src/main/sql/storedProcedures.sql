@@ -120,3 +120,14 @@ BEGIN
 SELECT * FROM cities WHERE idCities = cId;
 END
 $$ DELIMITER ;
+
+/* Get equipment for route */
+DROP PROCEDURE IF EXISTS getEquipmentForRoute;
+DELIMITER $$
+CREATE PROCEDURE getEquipmentForRoute(IN r VARCHAR(45))
+BEGIN
+SELECT idEquipment, configuration, series FROM 
+	(routes JOIN routeequipment ON routes.name = routeequipment.routeName AND routes.name = r)
+    JOIN equipment ON equipment.idEquipment = routeequipment.equipmentId;
+END
+$$ DELIMITER ;
