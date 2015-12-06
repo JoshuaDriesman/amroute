@@ -46,7 +46,7 @@ DROP PROCEDURE IF EXISTS getSchedulesForRoute;
 DELIMITER $$
 CREATE PROCEDURE getSchedulesForRoute(IN r VARCHAR(45))
 BEGIN
-SELECT * FROM schedule WHERE route = r;
+SELECT * FROM schedule WHERE route = r ORDER BY originTime;
 END
 $$ DELIMITER ;
 
@@ -98,7 +98,7 @@ DROP PROCEDURE IF EXISTS getStopsForSchedule;
 DELIMITER $$
 CREATE PROCEDURE getStopsForSchedule(IN sId INT)
 BEGIN
-SELECT * FROM schedulecities WHERE scheduleId = sId;
+SELECT * FROM schedulecities WHERE scheduleId = sId ORDER BY time;
 END
 $$ DELIMITER ;
 
