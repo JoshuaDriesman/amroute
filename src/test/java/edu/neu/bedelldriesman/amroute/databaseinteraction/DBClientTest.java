@@ -15,6 +15,8 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Joshua Driesman on 12/5/2015.
+ *
+ * Copyright 2015 Joshua Driesman, All rights reserved.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = AmrouteApplication.class)
