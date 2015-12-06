@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title th:text="${id}"></title>
 </head>
 <body>
+    <h1 th:text="${id}"></h1>
 
+    <div th:each="sched : ${schedules}">
+        <h3>Originating from <span th:text="${sched.getOriginCity().getName()}"></span> at
+            <span th:text="${sched.getOriginDepartureTime()}"></span>, and terminating at
+            <span th:text="${sched.getTermCity().getName()}"></span> at
+            <span th:text="${sched.getTermArrivalTime()}"></span>:
+        </h3>
+
+        <table>
+            <tr>
+                <td><b>City</b></td>
+                <td><b>State</b></td>
+                <td><b>Region</b></td>
+                <td><b>Time</b></td>
+            </tr>
+            <tr>
+                <td th:text="${sched.getOriginCity().getName()}"></td>
+                <td th:text="${sched.getOriginCity().getState()}"></td>
+                <td th:text="${sched.getOriginCity().getRegion()}"></td>
+                <td th:text="${sched.getOriginDepartureTime()}"></td>
+            </tr>
+            <div th:each="stop : ${sched.getStops()}">
+                <tr>
+                    <td th:text="${stop.getCity().getName()}"></td>
+                    <td th:text="${stop.getCity().getState()}"></td>
+                    <td th:text="${stop.getCity().getRegion()}"></td>
+                    <td th:text="${stop.getTime()}"></td>
+                </tr>
+            </div>
+            <tr>
+                <td th:text="${sched.getTermCity().getName()}"></td>
+                <td th:text="${sched.getTermCity().getState()}"></td>
+                <td th:text="${sched.getTermCity().getRegion()}"></td>
+                <td th:text="${sched.getTermArrivalTime()}"></td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
