@@ -97,7 +97,42 @@ public class DBClientImpl implements DBClient {
 
     @Override
     public ArrayList<Stop> getStopsForSchedule(int sId) {
-        return null;
+        ArrayList<Stop> stops = new ArrayList<>();
+
+        SimpleJdbcCall call = new SimpleJdbcCall(template)
+                .withProcedureName("getStopsForSchedule")
+                .returningResultSet("rs1", (resultSet, i) ->
+                        new Stop(getCity(resultSet.getInt(2)), resultSet.getInt(1), resultSet.getInt(2),
+                                resultSet.getTime(3)));
+
+        SqlParameterSource in = new MapSqlParameterSource()
+                .addValue("sId", sId);
+
+        Object resultObject = call.execute(in).get("rs1");
+        ArrayList resultArrayList;
+
+        if (resultObject instanceof ArrayList) {
+            resultArrayList = (ArrayList) resultObject;
+        } else {
+            throw new IllegalStateException("Got unexpected stuff from database");
+        }
+
+        for (Object row : resultArrayList) {
+            stops.add((Stop) row);
+        }
+
+        return stops;
+    }
+
+    private City getCity(int anInt) {
+        ArrayList<City> resultList = new ArrayList<>();
+
+        template.query("SELECT * FROM cities WHERE idCities = ?", new Object[] {anInt},
+                (rs, rowNumber) -> new City(rs.getInt(1), rs.getString(3), rs.getString(4),
+                        rs.getString(2)))
+                .forEach(resultList::add);
+
+        return resultList.get(0);
     }
 
     @Override
