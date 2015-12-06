@@ -13,9 +13,6 @@ import java.util.ArrayList;
  * Copyright 2015 Joshua Driesman, All rights reserved.
  */
 public interface DBClient {
-    /*boolean create(Object input);
-    boolean delete(int id);
-    Object get(int id);*/
     ArrayList<Route> getAllRoutes();
 
     ArrayList<Route> getServingRoutes(String cityName);
