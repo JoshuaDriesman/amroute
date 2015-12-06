@@ -29,6 +29,7 @@ public class EquipmentController {
         ArrayList<Equipment> equipment = client.getEquipmentForRoute(routeId);
 
         model.addAttribute("equipment", equipment.toArray());
+        model.addAttribute("route", routeId);
 
         return "equipment";
     }
