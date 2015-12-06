@@ -1,9 +1,6 @@
 package edu.neu.bedelldriesman.amroute.databaseinteraction;
 
-import edu.neu.bedelldriesman.amroute.entitymodels.City;
-import edu.neu.bedelldriesman.amroute.entitymodels.Route;
-import edu.neu.bedelldriesman.amroute.entitymodels.Schedule;
-import edu.neu.bedelldriesman.amroute.entitymodels.Stop;
+import edu.neu.bedelldriesman.amroute.entitymodels.*;
 
 import java.util.ArrayList;
 
@@ -22,4 +19,6 @@ public interface DBClient {
     ArrayList<Stop> getStopsForSchedule(int sId);
 
     ArrayList<City> getCitiesForSchedule(int sId);
+
+    ArrayList<Equipment> getEquipmentForRoute(String route);
 }
