@@ -107,8 +107,8 @@ public class DBClientImpl implements DBClient {
         SimpleJdbcCall call = new SimpleJdbcCall(template)
                 .withProcedureName("getCitiesForSchedule")
                 .returningResultSet("rs1", (resultSet, i) ->
-                        new City(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
-                        resultSet.getString(4)));
+                        new City(resultSet.getInt(1), resultSet.getString(3), resultSet.getString(4),
+                        resultSet.getString(2)));
 
         SqlParameterSource in = new MapSqlParameterSource()
                 .addValue("sId", sId);

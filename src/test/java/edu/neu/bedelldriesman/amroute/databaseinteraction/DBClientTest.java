@@ -1,6 +1,7 @@
 package edu.neu.bedelldriesman.amroute.databaseinteraction;
 
 import edu.neu.bedelldriesman.amroute.AmrouteApplication;
+import edu.neu.bedelldriesman.amroute.entitymodels.City;
 import edu.neu.bedelldriesman.amroute.entitymodels.Route;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,5 +49,18 @@ public class DBClientTest {
 
         assertEquals("Capitol Limited", r.get(0).getName());
         assertEquals("Acela Express", r.get(1).getName());
+    }
+
+    @Test
+    public void testGetCitiesForSchedule() {
+        DBClientImpl dbClient = new DBClientImpl(template);
+
+        ArrayList<City> r = dbClient.getCitiesForSchedule(1);
+        ArrayList<String> cityNames = new ArrayList<>();
+
+        r.forEach(c -> cityNames.add(c.getName()));
+
+        System.out.println(r);
+        assertTrue(cityNames.contains("Rockville"));
     }
 }
