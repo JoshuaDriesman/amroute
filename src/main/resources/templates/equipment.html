@@ -4,8 +4,33 @@
 <head>
     <meta charset="UTF-8" />
     <title>Equipment</title>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </head>
 <body>
+<h1><span th:text="${route}"></span> Equipment</h1>
+
+<p>All the equipment used on this route. All equipment may not be present on every schedule.</p>
+
+<table>
+    <tr>
+        <td><b>Series</b></td>
+        <td><b>Configuration</b></td>
+    </tr>
+    <div th:each="equip : ${equipment}">
+        <tr>
+            <td th:text="${equip.getSeries()}"></td>
+            <td th:text="${equip.getConfiguration()}"></td>
+        </tr>
+    </div>
+</table>
+
+<br />
+<button onclick="goBack()">Go Back</button>
 
 </body>
 </html>
