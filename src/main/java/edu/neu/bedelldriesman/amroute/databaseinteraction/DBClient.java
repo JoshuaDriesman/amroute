@@ -25,4 +25,7 @@ public interface DBClient {
 
     // Delete methods
     int deleteRoute(String route);
+
+    // Update methods
+    void changeRouteName(String oldName, String newName);
 }
