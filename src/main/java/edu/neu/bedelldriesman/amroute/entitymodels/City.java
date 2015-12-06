@@ -4,6 +4,8 @@ import java.util.Objects;
 
 /**
  * Created by Joshua Driesman on 11/16/2015.
+ *
+ * Copyright 2015 Joshua Driesman, All rights reserved.
  */
 public class City {
     private int cityId;

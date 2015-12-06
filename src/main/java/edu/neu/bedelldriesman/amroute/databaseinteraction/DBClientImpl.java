@@ -15,6 +15,8 @@ import java.util.Map;
 
 /**
  * Created by Joshua Driesman on 12/5/2015.
+ *
+ * Copyright 2015 Joshua Driesman, All rights reserved.
  */
 @Component
 public class DBClientImpl implements DBClient {
