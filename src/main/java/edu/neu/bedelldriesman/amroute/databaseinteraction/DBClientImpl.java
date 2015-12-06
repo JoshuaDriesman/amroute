@@ -199,7 +199,7 @@ public class DBClientImpl implements DBClient {
     public Schedule getSchedule(int scheduleId) {
         ArrayList<Schedule> results = new ArrayList<>();
 
-        template.query("SELECT * FROM schedule WHERE scheduleId = ?", new Object[] {scheduleId},
+        template.query("SELECT * FROM schedule WHERE idSchedule = ?", new Object[] {scheduleId},
                 (rs, rowNumber) -> new Schedule(rs.getString(6), rs.getInt(2), rs.getInt(3),
                         rs.getTime(4), rs.getTime(5), getStopsForSchedule(rs.getInt(1)),
                         rs.getInt(2), getCity(rs.getInt(2)), getCity(rs.getInt(3))))
