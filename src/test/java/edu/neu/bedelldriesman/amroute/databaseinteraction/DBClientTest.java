@@ -2,6 +2,7 @@ package edu.neu.bedelldriesman.amroute.databaseinteraction;
 
 import edu.neu.bedelldriesman.amroute.AmrouteApplication;
 import edu.neu.bedelldriesman.amroute.entitymodels.City;
+import edu.neu.bedelldriesman.amroute.entitymodels.Equipment;
 import edu.neu.bedelldriesman.amroute.entitymodels.Route;
 import edu.neu.bedelldriesman.amroute.entitymodels.Stop;
 import org.junit.Test;
@@ -80,5 +81,17 @@ public class DBClientTest {
         }
 
         cityNames.contains("Rockville");
+    }
+
+    @Test
+    public void testGetEquipmentForRoute() {
+        DBClientImpl dbClient = new DBClientImpl(template);
+
+        ArrayList<Equipment> equipment = dbClient.getEquipmentForRoute("Acela Express");
+        ArrayList<String> series = new ArrayList<>();
+
+        equipment.forEach(e -> series.add(e.getSeries()));
+
+        series.forEach(s -> assertEquals("Acela High Speed Trainset", s));
     }
 }
