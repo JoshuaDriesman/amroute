@@ -8,6 +8,8 @@
 <body>
     <h1 th:text="${id}"></h1>
 
+    <a th:href="@{equipment(routeId=${id})}">Equipment</a>
+
     <div th:each="sched : ${schedules}">
         <h3>Originating from <span th:text="${sched.getOriginCity().getName()}"></span> at
             <span th:text="${sched.getOriginDepartureTime()}"></span>, and terminating at
