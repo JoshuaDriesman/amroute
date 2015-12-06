@@ -23,6 +23,11 @@
             <span th:text="${sched.getTermArrivalTime()}"></span>:
         </h3>
 
+        <form action="#" th:action="@{/schedule/edit}" th:object="${sched}" method="get">
+            <input type="hidden" name="scheduleId" th:value="${sched.getScheduleId()}" />
+            <input type="submit" value="Edit Schedule" />
+        </form>
+
         <table>
             <tr>
                 <td><b>City</b></td>
