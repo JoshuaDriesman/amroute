@@ -25,6 +25,8 @@ public interface DBClient {
 
     Schedule getSchedule(int scheduleId);
 
+    ArrayList<City> getAllCities();
+
     // Delete methods
     int deleteRoute(String route);
 
