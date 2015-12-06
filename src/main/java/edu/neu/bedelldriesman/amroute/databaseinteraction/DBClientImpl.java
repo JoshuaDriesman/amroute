@@ -79,8 +79,8 @@ public class DBClientImpl implements DBClient {
                 .withProcedureName("getSchedulesForRoute")
                 .returningResultSet("rs1", (resultSet, i) ->
                         new Schedule(resultSet.getString(6), resultSet.getInt(2), resultSet.getInt(3),
-                                resultSet.getTime(4), resultSet.getTime(5), getStopsForSchedule(resultSet.getInt(0)),
-                                resultSet.getInt(1), getCity(resultSet.getInt(2)), getCity(resultSet.getInt(3))));
+                                resultSet.getTime(4), resultSet.getTime(5), getStopsForSchedule(resultSet.getInt(1)),
+                                resultSet.getInt(2), getCity(resultSet.getInt(2)), getCity(resultSet.getInt(3))));
 
         SqlParameterSource in = new MapSqlParameterSource()
                 .addValue("r", route);
