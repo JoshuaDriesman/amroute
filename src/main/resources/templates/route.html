@@ -54,6 +54,11 @@
     </div>
 
     <br />
+    <form action="#" th:action="@{/route/edit}" th:object="${name}" method="get">
+        <input type="hidden" name="route" th:value="${name}" />
+        <input type="submit" name="edit" value="Edit" />
+    </form>
+    <br />
     <button onclick="goBack()">Go Back</button>
 
 </body>
