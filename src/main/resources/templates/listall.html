@@ -18,6 +18,12 @@
     <table th:each="name : ${names}">
         <tr>
             <td><a th:href="@{/route(id=${name})}" th:text="${name}"></a></td>
+            <td>
+                <form action="#" th:action="@{/route/delete}" th:object="${name}" method="post">
+                    <input type="hidden" name="route" th:value="${name}" />
+                    <input type="submit" name="delete" value="Delete" />
+                </form>
+            </td>
         </tr>
     </table>
 
