@@ -8,8 +8,8 @@
 <body>
     <h1>All Routes</h1>
     <p>
-        <ul>
-
+        <ul th:each="name : ${names}">
+            <li><a th:href="@{route(id=${name})}" th:text="${name}"></a></li>
         </ul>
     </p>
 </body>
