@@ -98,7 +98,7 @@ DROP PROCEDURE IF EXISTS getStopsForSchedule;
 DELIMITER $$
 CREATE PROCEDURE getStopsForSchedule(IN sId INT)
 BEGIN
-SELECT * FROM schedulecities WHERE scheduleId = sId ORDER BY time;
+SELECT * FROM schedulecities WHERE scheduleId = sId ORDER BY nextDay, time;
 END
 $$ DELIMITER ;
 
