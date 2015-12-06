@@ -14,11 +14,12 @@
 </head>
 <body>
     <h1>All Routes</h1>
-    <p>
-        <ul th:each="name : ${names}">
-            <li><a th:href="@{/route(id=${name})}" th:text="${name}"></a></li>
-        </ul>
-    </p>
+
+    <table th:each="name : ${names}">
+        <tr>
+            <td><a th:href="@{/route(id=${name})}" th:text="${name}"></a></td>
+        </tr>
+    </table>
 
     <br />
     <button onclick="goBack()">Go Back</button>
