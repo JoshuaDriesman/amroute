@@ -1,9 +1,6 @@
 package edu.neu.bedelldriesman.amroute.databaseinteraction;
 
-import edu.neu.bedelldriesman.amroute.entitymodels.City;
-import edu.neu.bedelldriesman.amroute.entitymodels.Route;
-import edu.neu.bedelldriesman.amroute.entitymodels.Schedule;
-import edu.neu.bedelldriesman.amroute.entitymodels.Stop;
+import edu.neu.bedelldriesman.amroute.entitymodels.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
@@ -169,4 +166,34 @@ public class DBClientImpl implements DBClient {
 
         return cities;
     }
+
+    @Override
+    public ArrayList<Equipment> getEquipmentForRoute(String route) {
+        ArrayList<Equipment> equipment = new ArrayList<>();
+
+        SimpleJdbcCall call = new SimpleJdbcCall(template)
+                .withProcedureName("getEquipmentForRoute")
+                .returningResultSet("rs1", (rs, i) ->
+                        new Equipment(rs.getInt(1), rs.getString(3), rs.getString(2)));
+
+        SqlParameterSource in = new MapSqlParameterSource()
+                .addValue("r", route);
+
+        Object resultObject = call.execute(in).get("rs1");
+        ArrayList resultArrayList;
+
+        if (resultObject instanceof ArrayList) {
+            resultArrayList = (ArrayList) resultObject;
+        } else {
+            throw new IllegalStateException("Got unexpected stuff from database");
+        }
+
+        for (Object row : resultArrayList) {
+            equipment.add((Equipment) row);
+        }
+
+        return equipment;
+    }
+
+
 }
