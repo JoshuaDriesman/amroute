@@ -77,7 +77,7 @@ public class DBClientImpl implements DBClient {
                 .returningResultSet("rs1", (resultSet, i) ->
                         new Schedule(resultSet.getString(6), resultSet.getInt(2), resultSet.getInt(3),
                                 resultSet.getTime(4), resultSet.getTime(5), getStopsForSchedule(resultSet.getInt(1)),
-                                resultSet.getInt(2), getCity(resultSet.getInt(2)), getCity(resultSet.getInt(3))));
+                                resultSet.getInt(1), getCity(resultSet.getInt(2)), getCity(resultSet.getInt(3))));
 
         SqlParameterSource in = new MapSqlParameterSource()
                 .addValue("r", route);
@@ -202,7 +202,7 @@ public class DBClientImpl implements DBClient {
         template.query("SELECT * FROM schedule WHERE idSchedule = ?", new Object[] {scheduleId},
                 (rs, rowNumber) -> new Schedule(rs.getString(6), rs.getInt(2), rs.getInt(3),
                         rs.getTime(4), rs.getTime(5), getStopsForSchedule(rs.getInt(1)),
-                        rs.getInt(2), getCity(rs.getInt(2)), getCity(rs.getInt(3))))
+                        rs.getInt(1), getCity(rs.getInt(2)), getCity(rs.getInt(3))))
                 .forEach(results::add);
 
         return results.get(0);
