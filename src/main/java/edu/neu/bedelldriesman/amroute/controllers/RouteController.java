@@ -56,7 +56,9 @@ public class RouteController {
                                 @RequestParam(value = "route", required = true) String routeToUpdate) {
         DBClientImpl client = new DBClientImpl(temp);
 
-        client.changeRouteName(routeToUpdate, newName);
+        if (newName.length() > 0) {
+            client.changeRouteName(routeToUpdate, newName);
+        }
 
         return "redirect:/search/listall";
     }
