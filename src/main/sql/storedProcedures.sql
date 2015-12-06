@@ -92,3 +92,31 @@ SELECT route, cityNameForId(origin) 'From', cityNameForId(termination) 'To', cit
 		JOIN cities ON cities.idCities = schedulecities.cityId;
 END
 $$ DELIMITER ;
+
+/* Get stops for schedule */
+DROP PROCEDURE IF EXISTS getStopsForSchedule;
+DELIMITER $$
+CREATE PROCEDURE getStopsForSchedule(IN sId INT)
+BEGIN
+SELECT * FROM schedulecities WHERE scheduleId = sId;
+END
+$$ DELIMITER ;
+
+/* Get cities for schedule */
+DROP PROCEDURE IF EXISTS getCitiesForSchedule;
+DELIMITER $$
+CREATE PROCEDURE getCitiesForSchedule(IN sId INT)
+BEGIN
+SELECT idCities, region, name, state FROM schedulecities JOIN cities ON
+	schedulecities.cityId = cities.idCities AND scheduleId = sId;
+END
+$$ DELIMITER ;
+
+/* Gets city for Id */
+DROP PROCEDURE IF EXISTS getCity;
+DELIMITER $$
+CREATE PROCEDURE getCity(IN cId INT)
+BEGIN
+SELECT * FROM cities WHERE idCities = cId;
+END
+$$ DELIMITER ;
