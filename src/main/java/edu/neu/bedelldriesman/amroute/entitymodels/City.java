@@ -8,7 +8,7 @@ import java.util.Objects;
  * Copyright 2015 Joshua Driesman, All rights reserved.
  */
 public class City {
-    private int cityId;
+    final private int cityId;
     private String name;
     private String state;
     private String region;
@@ -26,10 +26,6 @@ public class City {
 
     public int getCityId() {
         return cityId;
-    }
-
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
     }
 
     public String getName() {
