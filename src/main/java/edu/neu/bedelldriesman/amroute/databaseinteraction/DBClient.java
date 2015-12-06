@@ -24,5 +24,5 @@ public interface DBClient {
     ArrayList<Equipment> getEquipmentForRoute(String route);
 
     // Delete methods
-    boolean deleteRoute(String route);
+    int deleteRoute(String route);
 }

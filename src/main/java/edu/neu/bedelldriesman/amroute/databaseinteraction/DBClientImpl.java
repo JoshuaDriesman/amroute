@@ -195,5 +195,10 @@ public class DBClientImpl implements DBClient {
         return equipment;
     }
 
+    @Override
+    public int deleteRoute(String route) {
+        return template.update("DELETE FROM routes WHERE name = ?", new Object[] {route});
+    }
+
 
 }
