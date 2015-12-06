@@ -4,6 +4,13 @@
 <head>
     <meta charset="UTF-8" />
     <title>All Routes</title>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
 </head>
 <body>
     <h1>All Routes</h1>
@@ -12,5 +19,8 @@
             <li><a th:href="@{/route(id=${name})}" th:text="${name}"></a></li>
         </ul>
     </p>
+
+    <br />
+    <button onclick="goBack()">Go Back</button>
 </body>
 </html>

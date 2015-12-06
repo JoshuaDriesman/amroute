@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <title th:text="${id}"></title>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </head>
 <body>
     <h1 th:text="${id}"></h1>
@@ -46,5 +52,9 @@
             </tr>
         </table>
     </div>
+
+    <br />
+    <button onclick="goBack()">Go Back</button>
+
 </body>
 </html>
