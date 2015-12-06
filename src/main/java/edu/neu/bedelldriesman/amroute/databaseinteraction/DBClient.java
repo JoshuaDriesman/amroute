@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * Copyright 2015 Joshua Driesman, All rights reserved.
  */
 public interface DBClient {
+    // Retrieval methods
     ArrayList<Route> getAllRoutes();
 
     ArrayList<Route> getServingRoutes(String cityName);
@@ -21,4 +22,7 @@ public interface DBClient {
     ArrayList<City> getCitiesForSchedule(int sId);
 
     ArrayList<Equipment> getEquipmentForRoute(String route);
+
+    // Delete methods
+    boolean deleteRoute(String route);
 }
