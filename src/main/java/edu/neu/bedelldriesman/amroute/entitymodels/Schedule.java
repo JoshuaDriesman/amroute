@@ -11,7 +11,7 @@ import java.util.Objects;
  * Copyright 2015 Joshua Driesman, All rights reserved.
  */
 public class Schedule {
-    private int routeId;
+    private String route;
     private int originCity;
     private int termCity;
     private Time originDepartureTime;
@@ -19,24 +19,24 @@ public class Schedule {
 
     private List<Stop> stops;
 
-    public Schedule(int routeId, int originCity, int termCity,
+    public Schedule(String route, int originCity, int termCity,
                     Time originDepartureTime, Time termArrivalTime, List<Stop> stops) {
         Objects.requireNonNull(stops);
 
         this.stops = new ArrayList<Stop>(stops);
-        this.routeId = routeId;
+        this.route = route;
         this.originCity = originCity;
         this.termCity = termCity;
         this.originDepartureTime = originDepartureTime;
         this.termArrivalTime = termArrivalTime;
     }
 
-    public int getRouteId() {
-        return routeId;
+    public String getRoute() {
+        return route;
     }
 
-    public void setRouteId(int routeId) {
-        this.routeId = routeId;
+    public void setRoute(String route) {
+        this.route = route;
     }
 
     public int getOriginCity() {
@@ -88,7 +88,7 @@ public class Schedule {
 
         Schedule schedule = (Schedule) o;
 
-        if (routeId != schedule.routeId) return false;
+        if (!route.equals(schedule.route)) return false;
         if (originCity != schedule.originCity) return false;
         if (termCity != schedule.termCity) return false;
         if (!originDepartureTime.equals(schedule.originDepartureTime)) return false;
@@ -99,7 +99,7 @@ public class Schedule {
 
     @Override
     public int hashCode() {
-        int result = routeId;
+        int result = route.hashCode();
         result = 31 * result + originCity;
         result = 31 * result + termCity;
         result = 31 * result + originDepartureTime.hashCode();
@@ -111,7 +111,7 @@ public class Schedule {
     @Override
     public String toString() {
         return "Schedule{" +
-                "routeId=" + routeId +
+                "routeId=" + route +
                 ", originCity=" + originCity +
                 ", termCity=" + termCity +
                 ", originDepartureTime=" + originDepartureTime +
