@@ -3,6 +3,7 @@ package edu.neu.bedelldriesman.amroute.databaseinteraction;
 import edu.neu.bedelldriesman.amroute.AmrouteApplication;
 import edu.neu.bedelldriesman.amroute.entitymodels.City;
 import edu.neu.bedelldriesman.amroute.entitymodels.Route;
+import edu.neu.bedelldriesman.amroute.entitymodels.Stop;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,24 @@ public class DBClientTest {
 
         r.forEach(c -> cityNames.add(c.getName()));
 
-        System.out.println(r);
         assertTrue(cityNames.contains("Rockville"));
+    }
+
+    @Test
+    public void testGetStopsForSchedule() {
+        DBClientImpl dbClient = new DBClientImpl(template);
+
+        ArrayList<Stop> r = dbClient.getStopsForSchedule(1);
+        ArrayList<Integer> scheduleIds = new ArrayList<>();
+        ArrayList<String> cityNames = new ArrayList<>();
+
+        r.forEach(s -> scheduleIds.add(s.getScheduleId()));
+        r.forEach(s -> cityNames.add(s.getCity().getName()));
+
+        for (Integer id : scheduleIds) {
+            assertEquals(1, id.intValue());
+        }
+
+        cityNames.contains("Rockville");
     }
 }
