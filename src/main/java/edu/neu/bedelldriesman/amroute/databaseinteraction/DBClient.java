@@ -38,4 +38,6 @@ public interface DBClient {
 
     // Update methods
     void changeRouteName(String oldName, String newName);
+
+    void updateScheduleEndpoints(int scheduleId, int origin, int term);
 }
