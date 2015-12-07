@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Time;
 import java.util.List;
 
 /**
@@ -56,5 +57,31 @@ public class ScheduleController {
         client.updateScheduleEndpoints(scheduleId, originCity, termCity);
 
         return "";
+    }
+
+    @RequestMapping(path = "/schedule/create",  method = RequestMethod.GET)
+    public String createSchedule(
+            @RequestParam(value = "route") String route,
+            Model model) {
+
+        DBClient client = new DBClientImpl(temp);
+
+        model.addAttribute("route", route);
+        model.addAttribute("allCities", client.getAllCities());
+
+        return "createschedule";
+    }
+
+    @RequestMapping(path = "/schedule/create", method = RequestMethod.POST)
+    public String postCreateSchedule(@RequestParam(value = "origin") int origin,
+                                     @RequestParam(value = "term") int term,
+                                     @RequestParam(value = "originTime") String originTime,
+                                     @RequestParam(value = "termTime") String termTime,
+                                     @RequestParam(value = "route") String route) {
+        DBClient client = new DBClientImpl(temp);
+
+        client.insertSchedule(origin, term, Time.valueOf(originTime), Time.valueOf(termTime), route);
+
+        return "redirect:/route?id=" + route;
     }
 }

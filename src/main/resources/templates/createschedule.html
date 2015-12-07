@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <title>New Schedule</title>
+
+    <script type="application/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script type="application/javascript">
+        function makeNewSchedule(route) {
+            $.post("/schedule/create", {"origin": $("#origin").val(),
+                "term": $("#term").val(), "originTime": $("#originTime").val(), "termTime": $("#termTime").val(),
+                "route": route},
+                    function (data) {
+                        window.location.replace("/route?id=" + route);
+                    })
+        }
+    </script>
 </head>
 <body>
-
+<h1>New Schedule</h1>
+<form>
+    <b>Origin:</b>
+    <select name="originCity" id="origin">
+        <option th:each="city : ${allCities}"
+                th:value="${city.getCityId()}"
+                th:text="${city.getName()}"></option>
+    </select>
+    Time: <input type="time" name="originTime" id="originTime" />
+    <br /> <br />
+    <b>Termination:</b>
+    <select name="termCity" id="term">
+        <option th:each="city : ${allCities}"
+                th:value="${city.getCityId()}"
+                th:text="${city.getName()}"></option>
+    </select>
+    Time: <input type="time" name="termTime" id="termTime" />
+    <input type="hidden" th:value="${route}" />
+    <input type="button" value="Create" th:onclick="'makeNewSchedule('+ '\'' + ${route} + '\'' + ')'" />
+</form>
 </body>
 </html>
