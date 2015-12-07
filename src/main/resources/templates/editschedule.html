@@ -17,7 +17,6 @@
         function sendStopCreate(scheduleId) {
             $.post("/stop/add", {"scheduleId": scheduleId, "cityId": $('#city').val(), "time": $('#time').val()},
                     function(data) {
-                        console.log(data);
                         location.reload();
                     });
         }
@@ -73,14 +72,21 @@
 
 <h4>Add Stop:</h4>
 <form>
+    City:
     <select name="city" id="city">
         <option
             th:each="city : ${allOtherCities}"
             th:text="${city.getName()}"
             th:value="${city.getCityId()}"></option>
     </select>
+    Time:
     <input type="time" name="time" id="time" />
     <button type="button" th:onclick="'sendStopCreate(' + ${schedule.getScheduleId()} + ')'">Add Stop</button>
+</form>
+<br /> <br />
+<form action="#" th:action="@{/route}" th:object="${route}" method="get">
+    <input type="hidden" name="id" th:value="${schedule.getRoute()}" />
+    <input type="submit" value="Back"/>
 </form>
 </body>
 </html>
