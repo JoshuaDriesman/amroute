@@ -30,6 +30,8 @@ public interface DBClient {
     // Delete methods
     int deleteRoute(String route);
 
+    int deleteStop(int scheduleId, int cityId);
+
     // Update methods
     void changeRouteName(String oldName, String newName);
 }
