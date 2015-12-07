@@ -2,6 +2,7 @@ package edu.neu.bedelldriesman.amroute.databaseinteraction;
 
 import edu.neu.bedelldriesman.amroute.entitymodels.*;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 /**
@@ -10,6 +11,9 @@ import java.util.ArrayList;
  * Copyright 2015 Joshua Driesman, All rights reserved.
  */
 public interface DBClient {
+    // Insert methods
+    void insertStop(int scheduleId, int cityId, Time time);
+
     // Retrieval methods
     ArrayList<Route> getAllRoutes();
 

@@ -30,7 +30,7 @@ public class DBClientImpl implements DBClient {
 
     @Override
     public void insertStop(int scheduleId, int cityId, Time time) {
-        template.update("INSERT INTO schedulecities VALUES (?,?,?)",
+        template.update("INSERT INTO schedulecities (scheduleId, cityId, time) VALUES (?,?,?)",
         new Object[] {scheduleId, cityId, time});
     }
 
