@@ -36,8 +36,11 @@ public class ScheduleController {
         List<City> cities = client.getAllCities();
 
         model.addAttribute("schedule", s);
-        model.addAttribute("stops", s);
-        model.addAttribute("allCities", cities);
+        model.addAttribute("stops", s.getStops());
+
+        cities.remove(s.getOriginCity());
+        cities.remove(s.getTermCity());
+        model.addAttribute("allOtherCities", cities);
 
         return "editschedule";
     }

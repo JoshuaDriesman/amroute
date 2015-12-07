@@ -1,10 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <title>Edit Schedule</title>
+
+    <script type="application/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="application/javascript">
+        function sendStopDelete(scheduleId, cityId) {
+            $.post("/stop/delete", {"scheduleId": scheduleId, "cityId": cityId},
+                function(data) {
+                    location.reload();
+                });
+        }
+
+        function sendStopCreate(scheduleId) {
+            $.post("/stop/add", {"scheduleId": scheduleId, "cityId": $('#city').val(), "time": $('#time').val()},
+                    function(data) {
+                        console.log(data);
+                        location.reload();
+                    });
+        }
+    </script>
 </head>
 <body>
+<h1>Edit Schedule</h1>
+<form action="#" th:action="@{/schedule/edit}" th:object="${schedule}" method="post">
+    <b>Origin:</b>
+    <select name="originCity">
+        <option th:value="${schedule.getOriginCity().getCityId()}"
+                th:text="${schedule.getOriginCity().getName()}"
+                selected="selected">
+        </option>
+        <option th:each="city : ${allOtherCities}"
+                th:value="${city.getCityId()}"
+                th:text="${city.getName()}"></option>
+    </select>
+    <b>Termination:</b>
+    <select name="termCity">
+        <option th:value="${schedule.getTermCity().getCityId()}"
+                th:text="${schedule.getTermCity().getName()}"
+                selected="selected">
+        </option>
+        <option th:each="city : ${allOtherCities}"
+                th:value="${city.getCityId()}"
+                th:text="${city.getName()}"></option>
+    </select>
+</form>
+<br/> <br/>
 
+<table>
+    <tr>
+        <td><b>Stop</b></td>
+        <td><b>Time</b></td>
+    </tr>
+    <div th:each="stop : ${stops}">
+        <tr>
+            <td>
+                <span th:text="${stop.getCity().getName()}"></span>
+            </td>
+            <td>
+                <span th:text="${stop.getTime()}"></span>
+            </td>
+            <td>
+                <button th:onclick="'sendStopDelete(' + ${stop.getScheduleId()} + ',' + ${stop.getCityId()} + ')'">
+                    Delete
+                </button>
+            </td>
+        </tr>
+    </div>
+</table>
+
+<h4>Add Stop:</h4>
+<form>
+    <select name="city" id="city">
+        <option
+            th:each="city : ${allOtherCities}"
+            th:text="${city.getName()}"
+            th:value="${city.getCityId()}"></option>
+    </select>
+    <input type="time" name="time" id="time" />
+    <button type="button" th:onclick="'sendStopCreate(' + ${schedule.getScheduleId()} + ')'">Add Stop</button>
+</form>
 </body>
 </html>
