@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Component;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +26,12 @@ public class DBClientImpl implements DBClient {
     public DBClientImpl(JdbcTemplate template) {
         this.template = template;
 
+    }
+
+    @Override
+    public void insertStop(int scheduleId, int cityId, Time time) {
+        template.update("INSERT INTO schedulecities VALUES (?,?,?)",
+        new Object[] {scheduleId, cityId, time});
     }
 
     @Override
