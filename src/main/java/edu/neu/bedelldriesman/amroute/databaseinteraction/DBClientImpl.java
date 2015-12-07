@@ -244,5 +244,11 @@ public class DBClientImpl implements DBClient {
         template.update("UPDATE routes SET name = ? WHERE name = ?", new Object[] {newName, oldName});
     }
 
+    @Override
+    public void updateScheduleEndpoints(int scheduleId, int origin, int term) {
+        template.update("UPDATE schedule SET origin = ?, termination = ? WHERE idSchedule = ?",
+                new Object[] {origin, term, scheduleId});
+    }
+
 
 }

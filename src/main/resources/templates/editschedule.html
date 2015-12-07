@@ -20,13 +20,20 @@
                         location.reload();
                     });
         }
+
+        function sendUpdateSchedule(scheduleId) {
+            $.post("/schedule/edit", {"scheduleId": scheduleId, "origin": $("#origin").val(), "term": $("#term").val()},
+                function (data) {
+                    location.reload()
+                });
+        }
     </script>
 </head>
 <body>
 <h1>Edit Schedule</h1>
-<form action="#" th:action="@{/schedule/edit}" th:object="${schedule}" method="post">
+<form>
     <b>Origin:</b>
-    <select name="originCity">
+    <select name="originCity" id="origin">
         <option th:value="${schedule.getOriginCity().getCityId()}"
                 th:text="${schedule.getOriginCity().getName()}"
                 selected="selected">
@@ -36,7 +43,7 @@
                 th:text="${city.getName()}"></option>
     </select>
     <b>Termination:</b>
-    <select name="termCity">
+    <select name="termCity" id="term">
         <option th:value="${schedule.getTermCity().getCityId()}"
                 th:text="${schedule.getTermCity().getName()}"
                 selected="selected">
@@ -45,7 +52,7 @@
                 th:value="${city.getCityId()}"
                 th:text="${city.getName()}"></option>
     </select>
-    <input type="submit" value="Update" />
+    <input type="button" value="Update" th:onclick="${'sendUpdateSchedule(' + schedule.getScheduleId() + ')'}" />
 </form>
 <br/> <br/>
 

@@ -1,5 +1,6 @@
 package edu.neu.bedelldriesman.amroute.controllers;
 
+import edu.neu.bedelldriesman.amroute.databaseinteraction.DBClient;
 import edu.neu.bedelldriesman.amroute.databaseinteraction.DBClientImpl;
 import edu.neu.bedelldriesman.amroute.entitymodels.City;
 import edu.neu.bedelldriesman.amroute.entitymodels.Schedule;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class ScheduleController {
     @Autowired
     JdbcTemplate temp;
 
-    @RequestMapping(path = "/schedule/edit", method= RequestMethod.GET)
+    @RequestMapping(path = "/schedule/edit", method = RequestMethod.GET)
     public String getSchedule(@RequestParam(value = "scheduleId", required = true) int scheduleId,
                               Model model) {
         DBClientImpl client = new DBClientImpl(temp);
@@ -43,5 +45,16 @@ public class ScheduleController {
         model.addAttribute("allOtherCities", cities);
 
         return "editschedule";
+    }
+
+    @RequestMapping(path = "/schedule/edit", method = RequestMethod.POST)
+    public @ResponseBody String updateSchedule(@RequestParam(value = "scheduleId") int scheduleId,
+                   @RequestParam(value = "origin") int originCity,
+                   @RequestParam(value = "term") int termCity) {
+        DBClient client = new DBClientImpl(temp);
+
+        client.updateScheduleEndpoints(scheduleId, originCity, termCity);
+
+        return "";
     }
 }
