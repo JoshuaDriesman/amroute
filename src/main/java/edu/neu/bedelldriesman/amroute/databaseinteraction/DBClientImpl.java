@@ -35,6 +35,12 @@ public class DBClientImpl implements DBClient {
     }
 
     @Override
+    public void insertSchedule(int origin, int term, Time originTime, Time termTime, String route) {
+        template.update("INSERT INTO schedule (origin, termination, originTime, termTime, route) VALUES (?, ?, ?, ?, ?)",
+                new Object[] {origin, term, originTime, termTime, route});
+    }
+
+    @Override
     public ArrayList<Route> getAllRoutes() {
         ArrayList<Route> result = new ArrayList<>();
 
