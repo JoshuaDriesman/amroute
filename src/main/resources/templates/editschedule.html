@@ -88,7 +88,7 @@
             th:value="${city.getCityId()}"></option>
     </select>
     Time:
-    <input type="time" name="time" id="time" />
+    <input type="text" name="time" id="time" />
     <button type="button" th:onclick="'sendStopCreate(' + ${schedule.getScheduleId()} + ')'">Add Stop</button>
 </form>
 <br /> <br />
