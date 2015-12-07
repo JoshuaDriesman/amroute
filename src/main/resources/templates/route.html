@@ -14,6 +14,18 @@
 <body>
     <h1 th:text="${id}"></h1>
 
+    <form action="#" th:action="@{/route/edit}" th:object="${id}" method="get" style="float: left; margin-right: 5pt;">
+        <input type="hidden" name="route" th:value="${id}" />
+        <input type="submit" name="edit" value="Edit Route" />
+    </form>
+
+    <form action="#" th:action="@{/schedule/create}" th:object="${id}" method="get">
+        <input type="hidden" name="route" th:value="${id}" />
+        <input type="submit" name="edit" value="Add Schedule" />
+    </form>
+
+    <br/>
+
     <a th:href="@{/route/equipment(routeId=${id})}">Equipment</a>
 
     <div th:each="sched : ${schedules}">
@@ -59,10 +71,6 @@
     </div>
 
     <br />
-    <form action="#" th:action="@{/route/edit}" th:object="${id}" method="get">
-        <input type="hidden" name="route" th:value="${id}" />
-        <input type="submit" name="edit" value="Edit Route" />
-    </form>
     <br />
     <form th:action="@{/search/listall}">
         <input type="submit" value="Back" />
