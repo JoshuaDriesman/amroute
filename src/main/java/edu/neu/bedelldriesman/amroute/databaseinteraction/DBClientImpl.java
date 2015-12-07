@@ -219,7 +219,7 @@ public class DBClientImpl implements DBClient {
     public ArrayList<City> getAllCities() {
         ArrayList<City> result = new ArrayList<>();
 
-        template.query("SELECT * FROM cities",
+        template.query("SELECT * FROM cities ORDER BY name",
                 (rs, i) ->
                         new City(rs.getInt(1), rs.getString(3), rs.getString(4),
                                 rs.getString(2)))
