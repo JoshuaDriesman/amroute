@@ -84,4 +84,13 @@ public class ScheduleController {
 
         return "redirect:/route?id=" + route;
     }
+
+    @RequestMapping(path = "/schedule/delete", method = RequestMethod.POST)
+    public @ResponseBody String postDeleteSchedule(@RequestParam(value = "scheduleId") int scheduleId) {
+        DBClient client = new DBClientImpl(temp);
+
+        client.deleteSchedule(scheduleId);
+
+        return "";
+    }
 }
