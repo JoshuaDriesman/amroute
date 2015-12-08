@@ -14,7 +14,7 @@ public interface DBClient {
     // Insert methods
     void insertStop(int scheduleId, int cityId, Time time);
 
-    void insertSchedule(int origin, int term, Time originTime, Time termTime, String route);
+    int insertSchedule(int origin, int term, Time originTime, Time termTime, String route);
 
     // Retrieval methods
     ArrayList<Route> getAllRoutes();

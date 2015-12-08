@@ -13,7 +13,7 @@
                 "term": $("#term").val(), "originTime": $("#originTime").val(), "termTime": $("#termTime").val(),
                 "route": route},
                     function (data) {
-                        window.location.replace("/route?id=" + route);
+                        window.location.replace("/schedule/edit?scheduleId=" + data.valueOf());
                     })
         }
     </script>

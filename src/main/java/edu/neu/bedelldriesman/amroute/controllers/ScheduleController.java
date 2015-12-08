@@ -73,16 +73,14 @@ public class ScheduleController {
     }
 
     @RequestMapping(path = "/schedule/create", method = RequestMethod.POST)
-    public String postCreateSchedule(@RequestParam(value = "origin") int origin,
+    public @ResponseBody int postCreateSchedule(@RequestParam(value = "origin") int origin,
                                      @RequestParam(value = "term") int term,
                                      @RequestParam(value = "originTime") String originTime,
                                      @RequestParam(value = "termTime") String termTime,
                                      @RequestParam(value = "route") String route) {
         DBClient client = new DBClientImpl(temp);
 
-        client.insertSchedule(origin, term, Time.valueOf(originTime), Time.valueOf(termTime), route);
-
-        return "redirect:/route?id=" + route;
+        return client.insertSchedule(origin, term, Time.valueOf(originTime), Time.valueOf(termTime), route);
     }
 
     @RequestMapping(path = "/schedule/delete", method = RequestMethod.POST)

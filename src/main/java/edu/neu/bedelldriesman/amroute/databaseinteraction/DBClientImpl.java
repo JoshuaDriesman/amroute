@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Joshua Driesman on 12/5/2015.
@@ -35,9 +36,16 @@ public class DBClientImpl implements DBClient {
     }
 
     @Override
-    public void insertSchedule(int origin, int term, Time originTime, Time termTime, String route) {
+    public int insertSchedule(int origin, int term, Time originTime, Time termTime, String route) {
         template.update("INSERT INTO schedule (origin, termination, originTime, termTime, route) VALUES (?, ?, ?, ?, ?)",
                 new Object[] {origin, term, originTime, termTime, route});
+
+        List results = template.query("SELECT LAST_INSERT_ID()",
+                (rs, row) -> rs.getInt(1));
+
+        int id = (int) results.get(0);
+
+        return id;
     }
 
     @Override
