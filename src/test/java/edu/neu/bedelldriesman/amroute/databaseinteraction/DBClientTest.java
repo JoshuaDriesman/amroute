@@ -47,7 +47,7 @@ public class DBClientTest {
     public void testGetServingRoutes() {
         DBClientImpl dbClient = new DBClientImpl(template);
 
-        ArrayList<Route> r = dbClient.getServingRoutes("Washington");
+        ArrayList<Route> r = dbClient.getServingRoutes(1);
 
         assertEquals("Capitol Limited", r.get(0).getName());
         assertEquals("Acela Express", r.get(1).getName());

@@ -19,13 +19,15 @@ public interface DBClient {
     // Retrieval methods
     ArrayList<Route> getAllRoutes();
 
-    ArrayList<Route> getServingRoutes(String cityName);
+    ArrayList<Route> getServingRoutes(int cityId);
 
     ArrayList<Schedule> getScheduleForRoute(String route);
 
     ArrayList<Stop> getStopsForSchedule(int sId);
 
     ArrayList<City> getCitiesForSchedule(int sId);
+
+    ArrayList<Route> getServingRoutes(int cityId, String lowerTimeString, String upperTimeString);
 
     ArrayList<Equipment> getEquipmentForRoute(String route);
 

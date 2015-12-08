@@ -2,6 +2,7 @@ package edu.neu.bedelldriesman.amroute.controllers;
 
 import edu.neu.bedelldriesman.amroute.databaseinteraction.DBClient;
 import edu.neu.bedelldriesman.amroute.databaseinteraction.DBClientImpl;
+import edu.neu.bedelldriesman.amroute.entitymodels.City;
 import edu.neu.bedelldriesman.amroute.entitymodels.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,7 +32,10 @@ public class IndexController {
 
         routes.forEach(n -> names.add(n.getName()));
 
+        ArrayList<City> cities = client.getAllCities();
+
         model.addAttribute("names", names.toArray());
+        model.addAttribute("cities", cities.toArray());
 
         return "index";
     }

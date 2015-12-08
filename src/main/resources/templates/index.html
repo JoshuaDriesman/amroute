@@ -7,6 +7,22 @@
 </head>
 <body>
 <h1>Welcome to Amroute</h1>
+
+<h3>Search Routes</h3>
+<form action="#" th:action="@{/search}" th:object="${name}" method="post">
+    By City:
+    <select name="city" id="city" required="required">
+    <option
+            th:each="city : ${cities}"
+            th:text="${city.getName()}"
+            th:value="${city.getCityId()}"></option>
+    </select>
+    Lower Bound Time:
+    <input type="text" pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" name="lowerTime" />
+    Upper Bound Time: <input type="text" pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" name="upperTime" />
+    <input type="submit" value="Search" />
+</form>
+
 <h3>All Routes</h3>
 
 <table th:each="name : ${names}">
@@ -22,6 +38,10 @@
 </table>
 
 <br />
+
+<form th:action="@{/}">
+    <input type="submit" value="Reset" />
+</form>
 
 </body>
 </html>

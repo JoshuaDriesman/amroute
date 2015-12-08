@@ -60,7 +60,7 @@ public class DBClientImpl implements DBClient {
     }
 
     @Override
-    public ArrayList<Route> getServingRoutes(String cityName) {
+    public ArrayList<Route> getServingRoutes(int cityId) {
         ArrayList<Route> result = new ArrayList<>();
 
         SimpleJdbcCall call = new SimpleJdbcCall(template)
@@ -68,7 +68,7 @@ public class DBClientImpl implements DBClient {
                 .returningResultSet("rs1", new SingleColumnRowMapper<>());
 
         SqlParameterSource in = new MapSqlParameterSource()
-                .addValue("c", cityName);
+                .addValue("cId", cityId);
 
         Object out = call.execute(in).get("rs1");
         ArrayList rows;
@@ -186,6 +186,35 @@ public class DBClientImpl implements DBClient {
         }
 
         return cities;
+    }
+
+    @Override
+    public ArrayList<Route> getServingRoutes(int cityId, String lowerTimeString, String upperTimeString) {
+        ArrayList<Route> routes = new ArrayList<>();
+
+        SimpleJdbcCall call = new SimpleJdbcCall(template)
+                .withProcedureName("getServingRoutesByTime")
+                .returningResultSet("rs1", (rs, i) ->
+                        new Route(rs.getString(1)));
+
+        SqlParameterSource in = new MapSqlParameterSource()
+                .addValue("cId", cityId).addValue("lowerTime", Time.valueOf(lowerTimeString))
+                .addValue("upperTime", Time.valueOf(upperTimeString));
+
+        Object resultObject = call.execute(in).get("rs1");
+        ArrayList resultArrayList;
+
+        if (resultObject instanceof ArrayList) {
+            resultArrayList = (ArrayList) resultObject;
+        } else {
+            throw new IllegalStateException("Got unexpected stuff from database");
+        }
+
+        for (Object row : resultArrayList) {
+            routes.add((Route) row);
+        }
+
+        return routes;
     }
 
     @Override
