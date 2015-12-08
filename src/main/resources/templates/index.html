@@ -7,13 +7,21 @@
 </head>
 <body>
 <h1>Welcome to Amroute</h1>
-<p>
-    What would you like to do?
-</p>
+<h3>All Routes</h3>
 
-<a th:href="@{search}">Search Routes</a>
+<table th:each="name : ${names}">
+    <tr>
+        <td><a th:href="@{/route(id=${name})}" th:text="${name}"></a></td>
+        <td>
+            <form action="#" th:action="@{/route/delete}" th:object="${name}" method="post">
+                <input type="hidden" name="route" th:value="${name}" />
+                <input type="submit" name="delete" value="Delete" />
+            </form>
+        </td>
+    </tr>
+</table>
+
 <br />
-<a th:href="@{create}">Create New Route</a>
 
 </body>
 </html>

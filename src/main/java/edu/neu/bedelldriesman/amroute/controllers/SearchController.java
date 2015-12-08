@@ -26,18 +26,4 @@ public class SearchController {
     public String searchForm() {
         return "search";
     }
-
-    @RequestMapping("/search/listall")
-    public String listAll(Model model) {
-        client = new DBClientImpl(temp);
-
-        ArrayList<Route> routes = client.getAllRoutes();
-        ArrayList<String> names = new ArrayList<>();
-
-        routes.forEach(n -> names.add(n.getName()));
-
-        model.addAttribute("names", names.toArray());
-
-        return "listAll";
-    }
 }
