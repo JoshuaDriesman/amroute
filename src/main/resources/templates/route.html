@@ -5,9 +5,18 @@
     <meta charset="UTF-8" />
     <title th:text="${id}"></title>
 
-    <script>
+    <script type="application/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script type="application/javascript">
         function goBack() {
             window.history.back();
+        }
+
+        function deleteSchedule(scheduleId) {
+            $.post("/schedule/delete", {"scheduleId": scheduleId},
+                function(data) {
+                    location.reload()
+                });
         }
     </script>
 </head>
@@ -35,9 +44,13 @@
             <span th:text="${sched.getTermArrivalTime()}"></span>:
         </h3>
 
-        <form action="#" th:action="@{/schedule/edit}" th:object="${sched}" method="get">
+        <form action="#" th:action="@{/schedule/edit}" th:object="${sched}" method="get"
+              style="float: left; margin-right: 5pt;">
             <input type="hidden" name="scheduleId" th:value="${sched.getScheduleId()}" />
             <input type="submit" value="Edit Schedule" />
+        </form>
+        <form>
+            <input type="button" value="Delete Schedule" th:onclick="${'deleteSchedule(' + sched.getScheduleId() + ')'}"/>
         </form>
 
         <table>
