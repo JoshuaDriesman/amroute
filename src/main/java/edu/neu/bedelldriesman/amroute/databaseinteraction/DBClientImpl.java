@@ -246,6 +246,12 @@ public class DBClientImpl implements DBClient {
     }
 
     @Override
+    public int deleteSchedule(int scheduleId) {
+        return template.update("DELETE FROM schedule WHERE idSchedule = ?",
+                new Object[] {scheduleId});
+    }
+
+    @Override
     public void changeRouteName(String oldName, String newName) {
         template.update("UPDATE routes SET name = ? WHERE name = ?", new Object[] {newName, oldName});
     }
