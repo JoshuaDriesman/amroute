@@ -29,15 +29,35 @@ $$ DELIMITER ;
 /* Find all routes for a certain city */
 DROP PROCEDURE IF EXISTS getServingRoutes;
 DELIMITER $$
-CREATE PROCEDURE getServingRoutes(IN c VARCHAR(45))
+CREATE PROCEDURE getServingRoutes(IN cId INT)
 BEGIN
 SELECT DISTINCT route FROM (cities JOIN schedulecities ON cities.idCities = schedulecities.cityId
-	AND cities.name = c) 
+	AND cities.idCities = cId) 
 	JOIN schedule ON schedulecities.scheduleId = schedule.idSchedule
 UNION
 SELECT DISTINCT route FROM cities JOIN schedule ON 
     (cities.idCities = schedule.origin OR cities.idCities = schedule.termination)
-    AND cities.name = c;
+    AND cities.idCities = cId;
+END
+$$ DELIMITER ;
+
+/* Find all routes serving a certain city between certain timmes */
+DROP PROCEDURE IF EXISTS getServingRoutesByTime;
+DELIMITER $$
+CREATE PROCEDURE getServingRoutesByTime(IN cId INT, IN lowerTime TIME, IN upperTime TIME)
+BEGIN
+SELECT DISTINCT route FROM (cities JOIN schedulecities ON cities.idCities = schedulecities.cityId
+	AND cities.idCities = cId) 
+	JOIN schedule ON schedulecities.scheduleId = schedule.idSchedule
+    AND schedulecities.time > lowerTime AND schedulecities.time < upperTime
+UNION
+SELECT DISTINCT route FROM cities JOIN schedule ON 
+    cities.idCities = schedule.termination AND cities.idCities = cId AND schedule.termTime > lowerTime
+    AND schedule.termTime < upperTime
+UNION 
+SELECT DISTINCT route FROM cities JOIN schedule ON
+	cities.idCities = schedule.origin AND cities.idCities = cId AND schedule.originTime > lowerTime AND
+    schedule.originTime < upperTime;
 END
 $$ DELIMITER ;
 
