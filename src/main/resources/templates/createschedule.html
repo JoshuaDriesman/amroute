@@ -27,7 +27,7 @@
                 th:value="${city.getCityId()}"
                 th:text="${city.getName()}"></option>
     </select>
-    Time: <input type="time" name="originTime" id="originTime" />
+    Time: <input type="text" pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" name="originTime" id="originTime" />
     <br /> <br />
     <b>Termination:</b>
     <select name="termCity" id="term">
@@ -35,7 +35,7 @@
                 th:value="${city.getCityId()}"
                 th:text="${city.getName()}"></option>
     </select>
-    Time: <input type="time" name="termTime" id="termTime" />
+    Time: <input type="text" pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" name="termTime" id="termTime" />
     <input type="hidden" th:value="${route}" />
     <input type="button" value="Create" th:onclick="'makeNewSchedule('+ '\'' + ${route} + '\'' + ')'" />
 </form>
