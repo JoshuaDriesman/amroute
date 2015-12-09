@@ -35,6 +35,8 @@ public interface DBClient {
 
     ArrayList<City> getAllCities();
 
+    ArrayList<Equipment> getAllEquipment();
+
     ArrayList<String> getConfigurationsForSeries(String seriesId);
 
     // Delete methods
