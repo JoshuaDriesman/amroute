@@ -1,5 +1,6 @@
 package edu.neu.bedelldriesman.amroute.controllers;
 
+import edu.neu.bedelldriesman.amroute.databaseinteraction.DBClient;
 import edu.neu.bedelldriesman.amroute.databaseinteraction.DBClientImpl;
 import edu.neu.bedelldriesman.amroute.entitymodels.Equipment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 
@@ -23,7 +25,7 @@ public class EquipmentController {
     JdbcTemplate temp;
 
     @RequestMapping(path = "/route/equipment", method = RequestMethod.GET)
-    public String getEquipment(@RequestParam(value = "routeId", required = true) String routeId, Model model){
+    public String getEquipment(@RequestParam(value = "routeId", required = true) String routeId, Model model) {
         DBClientImpl client = new DBClientImpl(temp);
 
         ArrayList<Equipment> equipment = client.getEquipmentForRoute(routeId);
@@ -32,6 +34,17 @@ public class EquipmentController {
         model.addAttribute("route", routeId);
 
         return "equipment";
+    }
+
+    @RequestMapping(path = "/route/equipment/configurations", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    ArrayList<String> getEquipmentConfigurations(@RequestParam(value = "seriesId") String seriesId) {
+        DBClient client = new DBClientImpl(temp);
+
+        ArrayList<String> configurations = client.getConfigurationsForSeries(seriesId);
+
+        return configurations;
     }
 
 }
