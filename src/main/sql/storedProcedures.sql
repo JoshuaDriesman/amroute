@@ -160,3 +160,21 @@ BEGIN
 SELECT configuration FROM equipment WHERE series = seriesName;
 END
 $$ DELIMITER ;
+
+/* Add equipment to route */
+DROP PROCEDURE IF EXISTS addEquipmentToRoute;
+DELIMITER $$
+CREATE PROCEDURE addEquipmentToRoute(IN equipmentSeries VARCHAR(45), IN equipmentConfig VARCHAR(45), IN route VARCHAR(45))
+BEGIN
+DECLARE equipId INT;
+DECLARE csr CURSOR FOR
+SELECT idEquipment FROM equipment WHERE series = equipmentSeries AND configuration = equipmentConfig;
+
+OPEN csr;
+FETCH csr INTO equipId;
+CLOSE csr;
+
+INSERT INTO routeequipment (routeName, equipmentId) VALUES (route, equipId);
+
+END
+$$ DELIMITER ;
