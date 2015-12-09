@@ -23,6 +23,12 @@
     <input type="submit" value="Search" />
 </form>
 
+<h3>Create Route</h3>
+<form action="#" th:action="@{/route/new}" method="post">
+    Name: <input type="text" name="routeId" />
+    <input type="submit" value="New Route" />
+</form>
+
 <h3>All Routes</h3>
 
 <table th:each="name : ${names}">

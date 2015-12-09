@@ -18,6 +18,8 @@ public interface DBClient {
 
     void addEquipmentToRoute(String series, String configuration, String route);
 
+    void addRoute(String routeId);
+
     // Retrieval methods
     ArrayList<Route> getAllRoutes();
 

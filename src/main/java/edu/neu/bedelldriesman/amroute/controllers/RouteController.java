@@ -1,5 +1,6 @@
 package edu.neu.bedelldriesman.amroute.controllers;
 
+import edu.neu.bedelldriesman.amroute.databaseinteraction.DBClient;
 import edu.neu.bedelldriesman.amroute.databaseinteraction.DBClientImpl;
 import edu.neu.bedelldriesman.amroute.entitymodels.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class RouteController {
 
         client.deleteRoute(route);
 
-        return "redirect:/search/listall";
+        return "redirect:/";
     }
 
     @RequestMapping(path = "/route/edit", method = RequestMethod.GET)
@@ -60,6 +61,17 @@ public class RouteController {
             client.changeRouteName(routeToUpdate, newName);
         }
 
-        return "redirect:/search/listall";
+        return "redirect:/";
+    }
+
+    @RequestMapping(path = "/route/new", method = RequestMethod.POST)
+    public String newRoute(@RequestParam(value = "routeId") String routeId) {
+        DBClient client = new DBClientImpl(temp);
+
+        if (!routeId.equals("")) {
+            client.addRoute(routeId);
+        }
+
+        return "redirect:/";
     }
 }

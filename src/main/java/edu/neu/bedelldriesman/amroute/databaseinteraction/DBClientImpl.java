@@ -63,6 +63,12 @@ public class DBClientImpl implements DBClient {
     }
 
     @Override
+    public void addRoute(String routeId) {
+        template.update("INSERT INTO routes (name) VALUES (?)",
+                new Object[] {routeId});
+    }
+
+    @Override
     public ArrayList<Route> getAllRoutes() {
         ArrayList<Route> result = new ArrayList<>();
 
