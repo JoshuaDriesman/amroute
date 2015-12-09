@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Created by Joshua Driesman on 12/5/2015.
- *
+ * <p>
  * Copyright 2015 Joshua Driesman, All rights reserved.
  */
 @Component
@@ -32,13 +32,13 @@ public class DBClientImpl implements DBClient {
     @Override
     public void insertStop(int scheduleId, int cityId, Time time) {
         template.update("INSERT INTO schedulecities (scheduleId, cityId, time) VALUES (?,?,?)",
-        new Object[] {scheduleId, cityId, time});
+                new Object[]{scheduleId, cityId, time});
     }
 
     @Override
     public int insertSchedule(int origin, int term, Time originTime, Time termTime, String route) {
         template.update("INSERT INTO schedule (origin, termination, originTime, termTime, route) VALUES (?, ?, ?, ?, ?)",
-                new Object[] {origin, term, originTime, termTime, route});
+                new Object[]{origin, term, originTime, termTime, route});
 
         List results = template.query("SELECT LAST_INSERT_ID()",
                 (rs, row) -> rs.getInt(1));
@@ -54,7 +54,7 @@ public class DBClientImpl implements DBClient {
 
         template.query("SELECT name FROM routes",
                 (rs, rowNumber) -> new Route(rs.getString("name")))
-        .forEach(result::add);
+                .forEach(result::add);
 
         return result;
     }
@@ -151,7 +151,7 @@ public class DBClientImpl implements DBClient {
     private City getCity(int anInt) {
         ArrayList<City> resultList = new ArrayList<>();
 
-        template.query("SELECT * FROM cities WHERE idCities = ?", new Object[] {anInt},
+        template.query("SELECT * FROM cities WHERE idCities = ?", new Object[]{anInt},
                 (rs, rowNumber) -> new City(rs.getInt(1), rs.getString(3), rs.getString(4),
                         rs.getString(2)))
                 .forEach(resultList::add);
@@ -167,7 +167,7 @@ public class DBClientImpl implements DBClient {
                 .withProcedureName("getCitiesForSchedule")
                 .returningResultSet("rs1", (resultSet, i) ->
                         new City(resultSet.getInt(1), resultSet.getString(3), resultSet.getString(4),
-                        resultSet.getString(2)));
+                                resultSet.getString(2)));
 
         SqlParameterSource in = new MapSqlParameterSource()
                 .addValue("sId", sId);
@@ -249,7 +249,7 @@ public class DBClientImpl implements DBClient {
     public Schedule getSchedule(int scheduleId) {
         ArrayList<Schedule> results = new ArrayList<>();
 
-        template.query("SELECT * FROM schedule WHERE idSchedule = ?", new Object[] {scheduleId},
+        template.query("SELECT * FROM schedule WHERE idSchedule = ?", new Object[]{scheduleId},
                 (rs, rowNumber) -> new Schedule(rs.getString(6), rs.getInt(2), rs.getInt(3),
                         rs.getTime(4), rs.getTime(5), getStopsForSchedule(rs.getInt(1)),
                         rs.getInt(1), getCity(rs.getInt(2)), getCity(rs.getInt(3))))
@@ -266,9 +266,20 @@ public class DBClientImpl implements DBClient {
                 (rs, i) ->
                         new City(rs.getInt(1), rs.getString(3), rs.getString(4),
                                 rs.getString(2)))
-        .forEach(result::add);
+                .forEach(result::add);
 
         return result;
+    }
+
+    @Override
+    public ArrayList<Equipment> getAllEquipment() {
+        ArrayList<Equipment> equipment = new ArrayList<>();
+
+        template.query("SELECT * FROM equipment",
+                (rs, row) -> new Equipment(rs.getInt(1), rs.getString(3), rs.getString(2)))
+                .forEach(equipment::add);
+
+        return equipment;
     }
 
     @Override
@@ -300,30 +311,30 @@ public class DBClientImpl implements DBClient {
 
     @Override
     public int deleteRoute(String route) {
-        return template.update("DELETE FROM routes WHERE name = ?", new Object[] {route});
+        return template.update("DELETE FROM routes WHERE name = ?", new Object[]{route});
     }
 
     @Override
     public int deleteStop(int scheduleId, int cityId) {
         return template.update("DELETE FROM schedulecities WHERE scheduleId = ? AND cityId = ?",
-                new Object[] {scheduleId, cityId});
+                new Object[]{scheduleId, cityId});
     }
 
     @Override
     public int deleteSchedule(int scheduleId) {
         return template.update("DELETE FROM schedule WHERE idSchedule = ?",
-                new Object[] {scheduleId});
+                new Object[]{scheduleId});
     }
 
     @Override
     public void changeRouteName(String oldName, String newName) {
-        template.update("UPDATE routes SET name = ? WHERE name = ?", new Object[] {newName, oldName});
+        template.update("UPDATE routes SET name = ? WHERE name = ?", new Object[]{newName, oldName});
     }
 
     @Override
     public void updateScheduleEndpoints(int scheduleId, int origin, int term) {
         template.update("UPDATE schedule SET origin = ?, termination = ? WHERE idSchedule = ?",
-                new Object[] {origin, term, scheduleId});
+                new Object[]{origin, term, scheduleId});
     }
 
 
