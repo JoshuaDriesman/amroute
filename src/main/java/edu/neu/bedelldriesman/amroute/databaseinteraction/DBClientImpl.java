@@ -272,11 +272,11 @@ public class DBClientImpl implements DBClient {
     }
 
     @Override
-    public ArrayList<Equipment> getAllEquipment() {
-        ArrayList<Equipment> equipment = new ArrayList<>();
+    public ArrayList<String> getAllEquipmentSeries() {
+        ArrayList<String> equipment = new ArrayList<>();
 
-        template.query("SELECT * FROM equipment",
-                (rs, row) -> new Equipment(rs.getInt(1), rs.getString(3), rs.getString(2)))
+        template.query("SELECT DISTINCT series FROM equipment",
+                (rs, row) -> rs.getString(1))
                 .forEach(equipment::add);
 
         return equipment;

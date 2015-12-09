@@ -32,6 +32,7 @@ public class EquipmentController {
 
         model.addAttribute("equipment", equipment.toArray());
         model.addAttribute("route", routeId);
+        model.addAttribute("allEquipmentSeries", client.getAllEquipmentSeries());
 
         return "equipment";
     }

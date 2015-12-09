@@ -5,10 +5,35 @@
     <meta charset="UTF-8" />
     <title>Equipment</title>
 
-    <script>
+    <script type="application/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
         function goBack() {
             window.history.back();
         }
+
+        function updateConfigurations() {
+            $.get("/route/equipment/configurations", {"seriesId": $("#seriesNewEquip").val()},
+                    function (data) {
+                        $("#configurationNewEquip").empty();
+                        for (i = 0; i < data.length; i++) {
+                            $("#configurationNewEquip").append("<option value = \"" + data[i] + "\">" + data[i] + "</option>");
+                        }
+                    });
+        }
+
+        function addEquipment() {
+            var series = $('#seriesNewEquip').val();
+            var configuration = $('#configurationNewEquip').val();
+
+            if (configuration == undefined) {
+                alert("Must enter configuration for new equipment.");
+            } else {
+
+            }
+        }
+        /*]]>*/
     </script>
 </head>
 <body>
@@ -28,6 +53,21 @@
         </tr>
     </div>
 </table>
+
+<h4>Add Equipment</h4>
+<form>
+    Series:
+    <select id="seriesNewEquip" onchange="updateConfigurations()">
+        <option th:each="equip : ${allEquipmentSeries}"
+        th:value="${equip}"
+        th:text="${equip}">
+        </option>
+    </select>
+    Configuration:
+    <select id="configurationNewEquip">
+    </select>
+    <input type="button" onclick="addEquipment()" value="Add Equipment"/>
+</form>
 
 <br />
 <button onclick="goBack()">Go Back</button>

@@ -35,7 +35,7 @@ public interface DBClient {
 
     ArrayList<City> getAllCities();
 
-    ArrayList<Equipment> getAllEquipment();
+    ArrayList<String> getAllEquipmentSeries();
 
     ArrayList<String> getConfigurationsForSeries(String seriesId);
 

@@ -151,3 +151,12 @@ SELECT idEquipment, configuration, series FROM
     JOIN equipment ON equipment.idEquipment = routeequipment.equipmentId;
 END
 $$ DELIMITER ;
+
+/* Get configurations for equipment */
+DROP PROCEDURE IF EXISTS getConfigurationsForSeries;
+DELIMITER $$
+CREATE PROCEDURE getConfigurationsForSeries(IN seriesName VARCHAR(45))
+BEGIN
+SELECT configuration FROM equipment WHERE series = seriesName;
+END
+$$ DELIMITER ;
