@@ -272,6 +272,33 @@ public class DBClientImpl implements DBClient {
     }
 
     @Override
+    public ArrayList<String> getConfigurationsForSeries(String seriesId) {
+        ArrayList<String> configurations = new ArrayList<>();
+
+        SimpleJdbcCall call = new SimpleJdbcCall(template)
+                .withProcedureName("getConfigurationsForSeries")
+                .returningResultSet("rs1", (rs, row) -> rs.getString(1));
+
+        SqlParameterSource in = new MapSqlParameterSource()
+                .addValue("seriesName", seriesId);
+
+        Object resultObject = call.execute(in).get("rs1");
+        ArrayList resultArrayList;
+
+        if (resultObject instanceof ArrayList) {
+            resultArrayList = (ArrayList) resultObject;
+        } else {
+            throw new IllegalStateException("Got unexpected stuff from database");
+        }
+
+        for (Object row : resultArrayList) {
+            configurations.add((String) row);
+        }
+
+        return configurations;
+    }
+
+    @Override
     public int deleteRoute(String route) {
         return template.update("DELETE FROM routes WHERE name = ?", new Object[] {route});
     }
