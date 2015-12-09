@@ -48,4 +48,20 @@ public class EquipmentController {
         return configurations;
     }
 
+    @RequestMapping(path = "/route/equipment/addtoroute", method = RequestMethod.POST)
+    public @ResponseBody void addEquipmentToRoute(@RequestParam(value = "series") String series,
+                                                  @RequestParam(value = "configuration") String configuration,
+                                                  @RequestParam(value = "route") String route) {
+        DBClient client = new DBClientImpl(temp);
+
+        client.addEquipmentToRoute(series, configuration, route);
+    }
+
+    @RequestMapping(path = "/route/equipment/remove", method = RequestMethod.POST)
+    public @ResponseBody void removeEquipment(@RequestParam(value = "equipId") int equipId) {
+        DBClient client = new DBClientImpl(temp);
+
+        client.deleteEquipment(equipId);
+    }
+
 }

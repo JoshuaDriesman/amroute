@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Equipment</title>
 
     <script type="application/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -30,8 +30,23 @@
             if (configuration == undefined) {
                 alert("Must enter configuration for new equipment.");
             } else {
-
+                $.post("/route/equipment/addtoroute", {
+                            "series": series, "configuration": configuration,
+                            "route": $("#routeNewEquip").val()
+                        },
+                        function (data) {
+                            location.reload();
+                        });
             }
+        }
+
+        function deleteEquipment(equipId) {
+            $.post("/route/equipment/remove", {
+                "equipId": equipId
+            },
+            function (data) {
+                location.reload();
+            });
         }
         /*]]>*/
     </script>
@@ -50,26 +65,33 @@
         <tr>
             <td th:text="${equip.getSeries()}"></td>
             <td th:text="${equip.getConfiguration()}"></td>
+            <td>
+                <button th:onclick="${'deleteEquipment(' + equip.getEquipmentId() +')'}">
+                    Delete
+                </button>
+            </td>
         </tr>
     </div>
 </table>
 
 <h4>Add Equipment</h4>
+
 <form>
     Series:
     <select id="seriesNewEquip" onchange="updateConfigurations()">
         <option th:each="equip : ${allEquipmentSeries}"
-        th:value="${equip}"
-        th:text="${equip}">
+                th:value="${equip}"
+                th:text="${equip}">
         </option>
     </select>
     Configuration:
     <select id="configurationNewEquip">
     </select>
     <input type="button" onclick="addEquipment()" value="Add Equipment"/>
+    <input type="hidden" th:value="${route}" id="routeNewEquip"/>
 </form>
 
-<br />
+<br/>
 <button onclick="goBack()">Go Back</button>
 
 </body>

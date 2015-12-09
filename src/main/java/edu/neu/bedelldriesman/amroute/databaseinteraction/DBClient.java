@@ -48,6 +48,8 @@ public interface DBClient {
 
     int deleteSchedule(int scheduleId);
 
+    void deleteEquipment(int equipId);
+
     // Update methods
     void changeRouteName(String oldName, String newName);
 
