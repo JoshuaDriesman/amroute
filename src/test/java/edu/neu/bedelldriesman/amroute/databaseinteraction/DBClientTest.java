@@ -48,9 +48,11 @@ public class DBClientTest {
         DBClientImpl dbClient = new DBClientImpl(template);
 
         ArrayList<Route> r = dbClient.getServingRoutes(1);
+        ArrayList<String> names = new ArrayList<>();
+        r.forEach(route -> names.add(route.getName()));
 
-        assertEquals("Capitol Limited", r.get(0).getName());
-        assertEquals("Acela Express", r.get(1).getName());
+        assertTrue(names.contains("Capitol Limited"));
+        assertTrue(names.contains("Acela Express"));
     }
 
     @Test
