@@ -49,6 +49,20 @@ public class DBClientImpl implements DBClient {
     }
 
     @Override
+    public void addEquipmentToRoute(String series, String configuration, String route) {
+        SimpleJdbcCall call = new SimpleJdbcCall(template)
+                .withProcedureName("addEquipmentToRoute")
+                .returningResultSet("rs1", new SingleColumnRowMapper<>());
+
+        SqlParameterSource in = new MapSqlParameterSource()
+                .addValue("equipmentSeries", series)
+                .addValue("equipmentConfig", configuration)
+                .addValue("route", route);
+
+        call.execute(in);
+    }
+
+    @Override
     public ArrayList<Route> getAllRoutes() {
         ArrayList<Route> result = new ArrayList<>();
 
