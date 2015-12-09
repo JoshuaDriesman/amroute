@@ -16,6 +16,8 @@ public interface DBClient {
 
     int insertSchedule(int origin, int term, Time originTime, Time termTime, String route);
 
+    void addEquipmentToRoute(String series, String configuration, String route);
+
     // Retrieval methods
     ArrayList<Route> getAllRoutes();
 
