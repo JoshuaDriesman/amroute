@@ -1,4 +1,4 @@
-package edu.neu.bedelldriesman.amroute;
+package me.joshuadriesman.amroute;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

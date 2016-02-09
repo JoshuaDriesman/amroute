@@ -1,10 +1,10 @@
-package edu.neu.bedelldriesman.amroute.databaseinteraction;
+package me.joshuadriesman.amroute.databaseinteraction;
 
-import edu.neu.bedelldriesman.amroute.AmrouteApplication;
-import edu.neu.bedelldriesman.amroute.entitymodels.City;
-import edu.neu.bedelldriesman.amroute.entitymodels.Equipment;
-import edu.neu.bedelldriesman.amroute.entitymodels.Route;
-import edu.neu.bedelldriesman.amroute.entitymodels.Stop;
+import me.joshuadriesman.amroute.AmrouteApplication;
+import me.joshuadriesman.amroute.entitymodels.City;
+import me.joshuadriesman.amroute.entitymodels.Equipment;
+import me.joshuadriesman.amroute.entitymodels.Route;
+import me.joshuadriesman.amroute.entitymodels.Stop;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

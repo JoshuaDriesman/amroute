@@ -1,4 +1,4 @@
-package edu.neu.bedelldriesman.amroute.response;
+package me.joshuadriesman.amroute.response;
 
 /**
  * Created by Joshua Driesman on 12/6/2015.

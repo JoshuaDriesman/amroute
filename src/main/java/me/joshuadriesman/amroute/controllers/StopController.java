@@ -1,12 +1,11 @@
-package edu.neu.bedelldriesman.amroute.controllers;
+package me.joshuadriesman.amroute.controllers;
 
-import edu.neu.bedelldriesman.amroute.databaseinteraction.DBClient;
-import edu.neu.bedelldriesman.amroute.databaseinteraction.DBClientImpl;
-import edu.neu.bedelldriesman.amroute.entitymodels.City;
-import edu.neu.bedelldriesman.amroute.response.BasicInsertResponse;
+import me.joshuadriesman.amroute.databaseinteraction.DBClient;
+import me.joshuadriesman.amroute.databaseinteraction.DBClientImpl;
+import me.joshuadriesman.amroute.entitymodels.City;
+import me.joshuadriesman.amroute.response.BasicInsertResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;

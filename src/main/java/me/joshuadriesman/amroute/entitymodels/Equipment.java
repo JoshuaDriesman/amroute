@@ -1,4 +1,4 @@
-package edu.neu.bedelldriesman.amroute.entitymodels;
+package me.joshuadriesman.amroute.entitymodels;
 
 import java.util.Objects;
 

@@ -1,6 +1,6 @@
-package edu.neu.bedelldriesman.amroute.databaseinteraction;
+package me.joshuadriesman.amroute.databaseinteraction;
 
-import edu.neu.bedelldriesman.amroute.entitymodels.*;
+import me.joshuadriesman.amroute.entitymodels.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
