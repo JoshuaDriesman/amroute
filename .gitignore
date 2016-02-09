@@ -4,3 +4,7 @@ target/
 .idea/
 
 *.bak
+
+*.iml
+
+mvnw*
