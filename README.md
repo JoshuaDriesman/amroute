@@ -27,8 +27,11 @@ Next, you need to set up the MySQL server with the required tables and stored pr
     1. Set ```spring.datasource.url``` to database host and name.
     2. Set ```spring.datasource.username``` to the database user's username.
     3. Set ```spring.datasource.password``` to the password for the database user.
-7. Run  ```$ mvn -DskipTests install``` to build the project.
-8. Run the project with ```java –jar ./target/amroute-0.0.1-SNAPSHOT```
+
+Finally, compile and run the code:
+
+1. Run  ```$ mvn -DskipTests install``` to build the project.
+2. Run the project with ```java –jar ./target/amroute-0.0.1-SNAPSHOT```
 
 
 &copy; Joshua Driesman 2015 - 2016
