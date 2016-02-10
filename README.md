@@ -32,6 +32,6 @@ Finally, compile and run the code:
 
 1. Run  ```$ mvn -DskipTests install``` to build the project.
 2. Run the project with ```java –jar ./target/amroute-0.0.1-SNAPSHOT```
-
+3. To access the main page go to http://127.0.0.1:8080/
 
 &copy; Joshua Driesman 2015 - 2016
