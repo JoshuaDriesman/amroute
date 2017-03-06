@@ -1,4 +1,4 @@
-use amroute;
+use 'amroute';
 
 /* Functions */
 DROP FUNCTION IF EXISTS cityNameForId;
@@ -22,7 +22,8 @@ END IF;
 
 RETURN cityName;
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
 
 /* Procedures */
 
@@ -39,9 +40,10 @@ SELECT DISTINCT route FROM cities JOIN schedule ON
     (cities.idCities = schedule.origin OR cities.idCities = schedule.termination)
     AND cities.idCities = cId;
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
 
-/* Find all routes serving a certain city between certain timmes */
+/* Find all routes serving a certain city between certain times */
 DROP PROCEDURE IF EXISTS getServingRoutesByTime;
 DELIMITER $$
 CREATE PROCEDURE getServingRoutesByTime(IN cId INT, IN lowerTime TIME, IN upperTime TIME)
@@ -59,7 +61,8 @@ SELECT DISTINCT route FROM cities JOIN schedule ON
 	cities.idCities = schedule.origin AND cities.idCities = cId AND schedule.originTime > lowerTime AND
     schedule.originTime < upperTime;
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
 
 /* Procedure to get all schedules for route */
 DROP PROCEDURE IF EXISTS getSchedulesForRoute;
@@ -68,7 +71,8 @@ CREATE PROCEDURE getSchedulesForRoute(IN r VARCHAR(45))
 BEGIN
 SELECT * FROM schedule WHERE route = r ORDER BY originTime;
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
 
 /* Procedure to get all stops for a route */
 DROP PROCEDURE IF EXISTS getAllPossibleStops;
@@ -79,7 +83,8 @@ SELECT DISTINCT cities.name FROM (schedule JOIN schedulecities
 		ON schedule.idSchedule = schedulecities.scheduleId AND schedule.route = r)
 	JOIN cities on schedulecities.cityId = cities.idCities;
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
 
 /* Procedure to get all origin cities for a route */
 DROP PROCEDURE IF EXISTS getAllPossibleOriginCities;
@@ -89,7 +94,8 @@ BEGIN
 SELECT DISTINCT cities.name FROM (schedule JOIN cities
 	ON schedule.origin = cities.idCities AND schedule.route = r);
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
 
 /* Procedure to get all origin cities for a route */
 DROP PROCEDURE IF EXISTS getAllPossibleTermCities;
@@ -99,7 +105,8 @@ BEGIN
 SELECT DISTINCT cities.name FROM (schedule JOIN cities
 	ON schedule.termination = cities.idCities AND schedule.route = r);
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
 
 /* Procedure to get all that depart in time range */
 DROP PROCEDURE IF EXISTS getStopsInTimeRange;
@@ -111,7 +118,8 @@ SELECT route, cityNameForId(origin) 'From', cityNameForId(termination) 'To', cit
 			schedulecities.time > lower AND schedulecities.time < upper) 
 		JOIN cities ON cities.idCities = schedulecities.cityId;
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
 
 /* Get stops for schedule */
 DROP PROCEDURE IF EXISTS getStopsForSchedule;
@@ -120,7 +128,8 @@ CREATE PROCEDURE getStopsForSchedule(IN sId INT)
 BEGIN
 SELECT * FROM schedulecities WHERE scheduleId = sId ORDER BY nextDay, time;
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
 
 /* Get cities for schedule */
 DROP PROCEDURE IF EXISTS getCitiesForSchedule;
@@ -130,7 +139,8 @@ BEGIN
 SELECT idCities, region, name, state FROM schedulecities JOIN cities ON
 	schedulecities.cityId = cities.idCities AND scheduleId = sId;
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
 
 /* Gets city for Id */
 DROP PROCEDURE IF EXISTS getCity;
@@ -139,7 +149,8 @@ CREATE PROCEDURE getCity(IN cId INT)
 BEGIN
 SELECT * FROM cities WHERE idCities = cId;
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
 
 /* Get equipment for route */
 DROP PROCEDURE IF EXISTS getEquipmentForRoute;
@@ -150,7 +161,8 @@ SELECT idEquipment, configuration, series FROM
 	(routes JOIN routeequipment ON routes.name = routeequipment.routeName AND routes.name = r)
     JOIN equipment ON equipment.idEquipment = routeequipment.equipmentId;
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
 
 /* Get configurations for equipment */
 DROP PROCEDURE IF EXISTS getConfigurationsForSeries;
@@ -159,7 +171,8 @@ CREATE PROCEDURE getConfigurationsForSeries(IN seriesName VARCHAR(45))
 BEGIN
 SELECT configuration FROM equipment WHERE series = seriesName;
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
 
 /* Add equipment to route */
 DROP PROCEDURE IF EXISTS addEquipmentToRoute;
@@ -177,4 +190,5 @@ CLOSE csr;
 INSERT INTO routeequipment (routeName, equipmentId) VALUES (route, equipId);
 
 END
-$$ DELIMITER ;
+$$
+DELIMITER ;
